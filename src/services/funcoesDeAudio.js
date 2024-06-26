@@ -1,8 +1,4 @@
 export function tocar(musica, controle) {
-    if (controle.mudanca.var) return;
-
-    controle.mudanca.set(true);
-
     if (controle.audioAtual.var) { controle.audioAtual.var.pause() }
 
     const audio = new Audio(musica.caminho)
@@ -11,7 +7,6 @@ export function tocar(musica, controle) {
     controle.audioAtual.set(audio)
     controle.src.set(musica.caminho)
     controle.estado.set('tocando')
-    controle.mudanca.set(false);
 
     audio.addEventListener('ended', () => avancar(musica, controle))
 }
