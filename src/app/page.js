@@ -19,8 +19,10 @@ export default function Home() {
     const [audioAtual, setAudioAtual] = useState(null);
     const [estado, setEstado] = useState('pausado')
     const [srcMusica, setSrcMusica] = useState(null)
+    const [mudancaDeMusica, setMudancaDeMusica] = useState(false);
 
     const variaveisDeControle = {
+        mudanca: { var: mudancaDeMusica, set: setMudancaDeMusica },
         audioAtual: { var: audioAtual, set: setAudioAtual },
         estado: { var: estado, set: setEstado },
         src: { var: srcMusica, set: setSrcMusica }
