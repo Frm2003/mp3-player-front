@@ -25,14 +25,29 @@ export default function Home() {
         estado: { var: estado, set: setEstado },
         src: { var: srcMusica, set: setSrcMusica }
     }
-    
+
     const [musica, setMusica] = useState(null)
-    
+
     useEffect(() => {
         if (srcMusica != null) {
             setMusica(lista.selectByPos(srcMusica))
         }
-    }, [srcMusica])
+
+        slideMove()
+
+        if (audioAtual) {
+            audioAtual.addEventListener('play', () => setEstado('playing'));
+            audioAtual.addEventListener('pause', () => setEstado('paused'));
+        }
+
+        return () => {
+            if (audioAtual) {
+                audioAtual.removeEventListener('play', () => setEstado('playing'));
+                audioAtual.removeEventListener('pause', () => setEstado('paused'));
+            }
+        };
+        
+    }, [srcMusica, audioAtual])
 
     const slideMove = () => {
         document.querySelectorAll('input[name="r"]').forEach((input, index) => {
