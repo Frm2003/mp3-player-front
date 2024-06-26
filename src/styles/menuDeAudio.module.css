@@ -1,0 +1,123 @@
+/* CONTROLES DE AUDIO*/
+.miniInfo {
+    bottom: 49px;
+    color: rgba(255, 255, 255, 1);
+    padding-bottom: 0.15em;
+    position: fixed;
+    transition: all 0.5s;
+    width: 100%;
+}
+
+.miniInfo article {
+    text-align: center;
+    background: rgb(20, 20, 20);
+    border-radius: 5px;
+    margin: auto;
+    width: 98%;
+}
+
+.miniInfo .aling {
+    display: flex;
+}
+
+.miniInfo .aling span {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    transition: transform 500ms;
+    width: 20%;
+}
+
+.miniInfo .aling span svg {
+    font-size: 30px;
+}
+
+.miniInfo label {
+    padding: 0.25em 0.5em;
+    overflow-x: scroll;
+    text-align: left;
+    width: 80%;
+    white-space: nowrap;
+}
+
+.miniInfo label * {
+    margin: 0;
+    padding: 0;
+}
+
+.miniInfo progress {
+    background: black;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    height: 1px;
+    width: 98%;
+}
+
+/*----------------------------------------------------------------------------------------------*/
+.control {
+    color: white;
+    background: rgb(20, 20, 20);
+    background: linear-gradient(to top, rgba(20, 20, 20, 1) 60%, rgba(20, 20, 20, 0.75) 80%, rgba(20, 20, 20, 0.5) 100%);
+    position: absolute;
+    transition: all 0.3s;
+    width: 100%;
+    z-index: 2;
+}
+
+.control .controlHead {
+    display: flex;
+    font-size: 35px;
+    justify-content: center;
+    padding: 0.25em 0;
+    width: 100%;
+}
+
+.control .controlBody {
+    max-width: 85%;
+    margin: auto;
+}
+
+.controlBody .botoes {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    padding: 0.5em 0;
+    overflow: hidden;
+}
+
+.controlBody .botoes span {
+    float: left;
+    text-align: center;
+}
+
+.controlBody .botoes span:nth-child(odd) {
+    font-size: 20px;
+    margin: 0 0.5%;
+    width: 24%;
+}
+
+.controlBody .botoes span:nth-child(even) {
+    width: 50%;
+}
+
+.controlBody .botoes span:nth-child(even) svg {
+    background: white;
+    border-radius: 50%;
+    color: black;
+    font-size: 50px;
+    padding: 0.25em;
+    height: 50px;
+    width: 50px;
+}
+
+.controlBody .barProgress input {
+    padding-top: 0.75em;
+    width: 100%;
+}
+
+.controlBody .barProgress div {
+    display: flex;
+    justify-content: space-between;
+}

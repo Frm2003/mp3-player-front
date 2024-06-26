@@ -1,0 +1,57 @@
+.body {
+
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.body * {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.title {
+    padding: 0.75em;
+    -webkit-box-shadow: 0px 10px 22px -3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 10px 22px -3px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 10px 22px -3px rgba(0, 0, 0, 0.75);
+}
+
+.slides {
+    width: 500%;
+    display: flex;
+}
+
+.content {
+    width: 20%;
+    transition: 0.5s;
+}
+
+.content h2 {
+    font-size: 30px;
+    padding: 0.5em;
+}
+
+.menu {
+    bottom: 0;
+    color: rgba(255, 255, 255, 1);
+    overflow: hidden;
+    padding: 0.5em;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.menu div {
+    margin: auto;
+    overflow: hidden;
+    padding: 0.25em;
+    width: 80%;
+}
+
+.menu svg {
+    float: left;
+    font-size: 30px;
+    margin: 0 .66%;
+    width: 32%;
+}

@@ -1,0 +1,56 @@
+.listBody {
+    list-style-type: none;
+    margin: 0em 2em;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.listBody * {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.listBody li {
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.listBody li:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.listBody li .info {
+    margin: 0em 0.75em;
+    padding: 0.75em 0em;
+    font-size: 15px;
+    overflow-x: scroll;
+    width: 90%;
+    white-space: nowrap;
+}
+
+.listBody li .estado {
+    padding: 0.5em;
+    text-align: center;
+    width: 10%;
+}
+
+.listBody .searchBar {
+    text-align: center;
+    width: 100%;
+}
+
+.listBody .searchBar input {
+    color: black;
+    padding: 0.5em;
+    width: 90%;
+}
+
+.thumb {
+    width: 20%;
+}
+
+.thumb img {
+    max-width: 100%;
+}
