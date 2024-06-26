@@ -35,22 +35,6 @@ export default function Home() {
         slideMove()
     }, [srcMusica])
 
-    useEffect(() => {
-        if (audioAtual) {
-            audioAtual.addEventListener('play', () => setEstado('playing'));
-            audioAtual.addEventListener('pause', () => setEstado('paused'));
-        }
-
-        slideMove()
-
-        return () => {
-            if (audioAtual) {
-                audioAtual.removeEventListener('play', () => setEstado('playing'));
-                audioAtual.removeEventListener('pause', () => setEstado('paused'));
-            }
-        }
-    }, [audioAtual]);
-
     const slideMove = () => {
         document.querySelectorAll('input[name="r"]').forEach((input, index) => {
             input.addEventListener('change', () => {
