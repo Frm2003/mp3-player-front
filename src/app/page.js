@@ -7,7 +7,7 @@ import Modal from '@/components/modal';
 import ListaDeReproducao from '@/components/listaResproducao';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faList, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faList, faMagnifyingGlass, faArrowDownAZ } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import MenuDeAudio from '@/components/menuDeAudio';
 
@@ -25,9 +25,9 @@ export default function Home() {
         estado: { var: estado, set: setEstado },
         src: { var: srcMusica, set: setSrcMusica }
     }
-    
+
     const [musica, setMusica] = useState(null)
-    
+
     useEffect(() => {
         if (srcMusica != null) {
             setMusica(lista.selectByPos(srcMusica))
@@ -47,6 +47,11 @@ export default function Home() {
     const abrirModal = () => { document.querySelector('#modal').style.marginTop = '0%' }
     const fecharModal = () => { document.querySelector('#modal').style.marginTop = '-300%' }
 
+    const teste = () => {
+        lista.mergeSort()
+        setListaMusicas(lista.selectAll())
+    }
+
     return (
         <>
             <section className={bodyStyle.body}>
@@ -54,7 +59,10 @@ export default function Home() {
                     <input type='radio' name='r' id='r1' style={{ display: 'none' }} />
                     <input type='radio' name='r' id='r2' style={{ display: 'none' }} />
                     <div className={bodyStyle.content} id="s1">
-                        <h2 id='h2'>Lista de Reprodução</h2>
+                        <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
+                            <h2 id='h2'>Lista de Reprodução</h2>
+                            <FontAwesomeIcon icon={faArrowDownAZ} onClick={() => teste()}/>
+                        </div>
                         {ListaDeReproducao(listaMusicas, variaveisDeControle)}
                     </div>
                     <div className={bodyStyle.content}>
