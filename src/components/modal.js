@@ -1,13 +1,17 @@
 import Musica from "@/model/musica";
 import modalStyle from "@/styles/modal.module.css"
 
+import { useState } from "react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function Modal(fecharModal, lista, setListaMusicas) {
+    const [loading, setLoading] = useState(false);
 
     function funcCarregaArqs(event) {
         const files = event.target.files;
+
+        setLoading(true);
 
         for (let i = 0; i < files.length; i++) {
             const fileName = files[i].name;
@@ -22,10 +26,12 @@ export default function Modal(fecharModal, lista, setListaMusicas) {
 
             lista.add(musica)
         }
-
-        setListaMusicas(lista.selectAll())
-
-        fecharModal()
+        
+        setTimeout(() => {
+            setListaMusicas(lista.selectAll());
+            setLoading(false);
+            fecharModal();
+        }, 1000);
     }
 
     return (

@@ -1,31 +1,25 @@
-import menuStyle from '@/styles/menuDeAudio.module.css'
-
+import menuStyle from '@/styles/menuDeAudio.module.css';
 import { avancar, continuar, pausar, tocar, voltar } from '../services/funcoesDeAudio';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faAngleDown, faBackward, faForward } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 export default function MenuDeAudio(musica, controle) {
     const control = useRef(null);
     const miniInfo = useRef(null);
 
-    const pausarMusica = () => pausar(controle.audioAtual.var, controle.estado.set)
-    const continuarMusica = () => continuar(controle.audioAtual.var, controle.estado.set)
-    const avançarMusica = () => avancar(musica, controle)
-    const voltarMusica = () => voltar(musica, controle)
-
-    useEffect(() => {
-        control.current.style.bottom = `-${control.current.offsetHeight}px`
-    }, [])
+    const pausarMusica = () => pausar(controle.audioAtual.var, controle.estado.set);
+    const continuarMusica = () => continuar(controle.audioAtual.var, controle.estado.set);
+    const avancarMusica = () => avancar(musica, controle);
+    const voltarMusica = () => voltar(musica, controle);
 
     const toggleControl = (e) => {
         if (e.target.checked) {
-            control.current.style.bottom = `${0}px`;
+            control.current.style.bottom = '0';
         } else {
             control.current.style.bottom = `-${control.current.offsetHeight}px`;
         }
-    }
+    };
 
     return (
         <>
@@ -33,14 +27,14 @@ export default function MenuDeAudio(musica, controle) {
                 <article>
                     <div className={menuStyle.aling}>
                         <label htmlFor="toggle" >
-                            <h3>{musica != null && controle.audioAtual.var != null ? musica.nome : 'Selecione uma musica'}</h3>
-                            <p>{musica != null && controle.audioAtual.var != null ? musica.artista : '...'}</p>
+                            <h3>{musica ? musica.nome : 'Selecione uma música'}</h3>
+                            <p>{musica ? musica.artista : '...'}</p>
                         </label>
-                        <input type='checkbox' id='toggle' onChange={(e) => { toggleControl(e) }} style={{ display: 'none' }} />
+                        <input type='checkbox' id='toggle' onChange={toggleControl} style={{ display: 'none' }} />
                         <span>
                             <FontAwesomeIcon
-                                icon={controle.estado.var == 'tocando' ? faPause : faPlay}
-                                onClick={() => controle.estado.var == 'tocando' ? pausarMusica() : continuarMusica()}
+                                icon={controle.estado.var === 'tocando' ? faPause : faPlay}
+                                onClick={() => controle.estado.var === 'tocando' ? pausarMusica() : continuarMusica()}
                             />
                         </span>
                     </div>
@@ -58,26 +52,24 @@ export default function MenuDeAudio(musica, controle) {
                     <FontAwesomeIcon icon={faAngleDown} />
                 </label>
                 <div className={menuStyle.controlBody}>
-
                     <div className={menuStyle.botoes}>
                         <span>
-                            <FontAwesomeIcon icon={faBackward} onClick={() => voltarMusica()} />
+                            <FontAwesomeIcon icon={faBackward} onClick={voltarMusica} />
                         </span>
                         <span>
                             <FontAwesomeIcon
-                                icon={controle.estado.var == 'tocando' ? faPause : faPlay}
-                                onClick={() => controle.estado.var == 'tocando' ? pausarMusica() : continuarMusica()}
+                                icon={controle.estado.var === 'tocando' ? faPause : faPlay}
+                                onClick={() => controle.estado.var === 'tocando' ? pausarMusica() : continuarMusica()}
                             />
                         </span>
                         <span>
-                            <FontAwesomeIcon icon={faForward} onClick={() => avançarMusica()} />
+                            <FontAwesomeIcon icon={faForward} onClick={avancarMusica} />
                         </span>
                     </div>
-                    
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 /*

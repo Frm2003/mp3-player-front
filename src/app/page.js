@@ -32,6 +32,7 @@ export default function Home() {
         if (srcMusica != null) {
             setMusica(lista.selectByPos(srcMusica))
         }
+
         slideMove()
     }, [srcMusica])
 

@@ -3,7 +3,7 @@
 import axios from "axios";
 
 export default async function ApiYoutube(query, maxResults) {
-    const API_KEY = 'AIzaSyAcl7oS98WzaMuf1aihrU4JSdRgryLO3MU';
+    const API_KEY = '';
     const API_URL = 'https://www.googleapis.com/youtube/v3/search';
 
     try {
