@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,7 +11,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body style={{ background: 'rgba(41, 37, 37, 1)', margin: '0', overflow: 'hidden' }} className={inter.className}>{children}</body>
+            <body style={{ background: 'rgba(41, 37, 37, 1)', margin: '0', overflowY: 'hidden' }} className={inter.className}>{children}</body>
+            <SpeedInsights />
         </html>
     );
 }

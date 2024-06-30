@@ -47,7 +47,7 @@ export default function Home() {
     const abrirModal = () => { document.querySelector('#modal').style.marginTop = '0%' }
     const fecharModal = () => { document.querySelector('#modal').style.marginTop = '-300%' }
 
-    const teste = () => {
+    const ordenar = () => {
         lista.mergeSort()
         setListaMusicas(lista.selectAll())
     }
@@ -59,9 +59,9 @@ export default function Home() {
                     <input type='radio' name='r' id='r1' style={{ display: 'none' }} />
                     <input type='radio' name='r' id='r2' style={{ display: 'none' }} />
                     <div className={bodyStyle.content} id="s1">
-                        <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}>
                             <h2 id='h2'>Lista de Reprodução</h2>
-                            <FontAwesomeIcon icon={faArrowDownAZ} onClick={() => teste()}/>
+                            <FontAwesomeIcon style={{ margin: "0.5em" }} icon={faArrowDownAZ} onClick={() => ordenar()}/>
                         </div>
                         {ListaDeReproducao(listaMusicas, variaveisDeControle)}
                     </div>
