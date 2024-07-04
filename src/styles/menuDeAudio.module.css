@@ -1,48 +1,50 @@
 /* CONTROLES DE AUDIO*/
-.miniInfo {
-    bottom: 49px;
+.miniInfo * {
+    box-sizing: border-box;
+    border-spacing: 0;
     color: rgba(255, 255, 255, 1);
-    padding-bottom: 0.15em;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    text-decoration: none;
+}
+
+.miniInfo {
+    bottom: 80px;
     position: fixed;
-    transition: all 0.5s;
     width: 100%;
 }
 
-.miniInfo article {
-    text-align: center;
+.miniInfo .aling {
     background: rgb(20, 20, 20);
     border-radius: 5px;
     margin: auto;
+    overflow: hidden;
     width: 98%;
 }
 
-.miniInfo .aling {
-    display: flex;
+.miniInfo .aling .info {
+    padding: 0.5em;
 }
 
-.miniInfo .aling span {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    transition: transform 500ms;
-    width: 20%;
+.miniInfo .aling .info input[type='checkbox'] {
+    display: none;
 }
 
-.miniInfo .aling span svg {
-    font-size: 30px;
-}
-
-.miniInfo label {
-    padding: 0.25em 0.5em;
-    overflow-x: scroll;
-    text-align: left;
+.miniInfo .aling .info .text {
+    float: left;
     width: 80%;
-    white-space: nowrap;
 }
 
-.miniInfo label * {
-    margin: 0;
-    padding: 0;
+.miniInfo .aling .info .text p {
+    margin-top: 0.25em;
+    opacity: 0.65;
+}
+
+.miniInfo .aling .info .icone {
+    float: right;
+    text-align: center;
+    width: 20%;
 }
 
 .miniInfo progress {
@@ -56,12 +58,13 @@
 
 /*----------------------------------------------------------------------------------------------*/
 .control {
-    color: white;
+    animation-duration: 0.25s;
+    animation-name: slideUp;
     background: rgb(20, 20, 20);
     background: linear-gradient(to top, rgba(20, 20, 20, 1) 60%, rgba(20, 20, 20, 0.75) 80%, rgba(20, 20, 20, 0.5) 100%);
-    position: absolute;
-    bottom: -500px;
-    transition: all 0.3s;
+    bottom: 0;
+    color: white;
+    position: fixed;
     width: 100%;
     z-index: 2;
 }
@@ -84,8 +87,8 @@
     display: flex;
     justify-content: center;
     max-width: 100%;
-    padding: 0.5em 0;
     overflow: hidden;
+    padding: 0.5em 0;
 }
 
 .controlBody .botoes span {
@@ -108,8 +111,8 @@
     border-radius: 50%;
     color: black;
     font-size: 50px;
-    padding: 0.25em;
     height: 50px;
+    padding: 0.25em;
     width: 50px;
 }
 
@@ -121,4 +124,14 @@
 .controlBody .barProgress div {
     display: flex;
     justify-content: space-between;
+}
+
+@keyframes slideUp {
+    from {
+        bottom: -500px
+    }
+
+    to {
+        bottom: 0;
+    }
 }

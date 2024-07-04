@@ -1,6 +1,11 @@
 import { Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false;
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,8 +16,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body style={{ background: 'rgba(41, 37, 37, 1)', margin: '0', overflowY: 'hidden' }} className={inter.className}>{children}</body>
-            <SpeedInsights />
+            <body style={{ background: 'rgba(41, 37, 37, 1)', margin: '0' }} className={inter.className}>
+                {children}
+                <SpeedInsights />
+            </body>
         </html>
     );
 }

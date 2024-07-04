@@ -1,56 +1,62 @@
+.listBody * {
+    box-sizing: border-box;
+    border-spacing: 0;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+    padding: 0;
+    outline: none;
+    text-decoration: none;
+}
+
 .listBody {
     list-style-type: none;
-    margin: 0em 2em;
     overflow-y: scroll;
     width: 100%;
 }
 
-.listBody * {
-    color: white;
-    margin: 0;
-    padding: 0;
+.listBody .align {
+    margin: auto;
+    padding-bottom: 0.75em;
+    width: 95%;
 }
 
 .listBody li {
+    padding: 0.85em 0;
+}
+
+.listBody li {
+    overflow: hidden;
+}
+
+.listBody li div {
+    float: left;
+}
+
+.listBody li .funcs, .listBody li .type {
     align-items: center;
     display: flex;
-    width: 100%;
-}
-
-.listBody li:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.listBody li .info {
-    margin: 0em 0.75em;
-    padding: 0.75em 0em;
-    font-size: 15px;
-    overflow-x: scroll;
-    width: 90%;
-    white-space: nowrap;
-}
-
-.listBody li .estado {
-    padding: 0.5em;
-    text-align: center;
+    height: 40px;
+    justify-content: center;
     width: 10%;
 }
 
-.listBody .searchBar {
-    text-align: center;
-    width: 100%;
+.listBody li .type {
+    opacity: 0.5;
 }
 
-.listBody .searchBar input {
-    color: black;
-    padding: 0.5em;
-    width: 90%;
+.listBody li .text {
+    overflow: scroll;
+    white-space: nowrap;
+    width: 78%;
+    margin: 0 0.5%;
 }
 
-.thumb {
-    width: 20%;
+.listBody li .text h3 {
+    font-size: 16px;
+    margin-bottom: 0.15em;
 }
 
-.thumb img {
-    max-width: 100%;
+.listBody li .text p {
+    font-size: 16px;
+    opacity: 0.65;
 }

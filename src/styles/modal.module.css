@@ -1,64 +1,66 @@
+.layout * {
+    box-sizing: border-box;
+    border-spacing: 0;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+    padding: 0;
+    outline: none;
+    text-decoration: none;
+}
+
 .layout {
     align-items: center;
+    animation-duration: 0.25s;
+    animation-name: slideDown;
     background: rgba(0, 0, 0, 0.35);
     display: flex;
     height: 100%;
     justify-content: center;
-    left: 0;
-    margin-top: -300%;
-    padding: 0;
     position: fixed;
     top: 0;
-    transition: all .5s;
     width: 100%;
-    z-index: 100;
 }
 
-.modal {
+.layout article {
+    background: rgba(41, 37, 37, 1);
+    border-radius: 5px;
+    margin: auto;
+    padding: 0.75em;
+    overflow: hidden;
     text-align: center;
-    border-radius: 10px;
-    background: rgba(33, 33, 33, 1);
-    color: rgba(255, 255, 255, 1);
-    height: 200px;
-    padding: 0.5em;
-    width: 80%;
-}
-
-.modal * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    border-spacing: 0;
-    text-decoration: none;
-}
-
-.modalHead {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5em 0;
-    width: 100%;
-}
-
-.modalHead label {
     width: 70%;
 }
 
-.modalHead span {
-    font-size: 35px;
-    text-align: end;
-    width: 30%;
+.layout article h2 {
+    padding: 0.25em 0 0.5em 0;
 }
 
-.modalBody h2 {
-    padding: 0.5em;
-}
-
-.modalBody label {
-    border: 2px solid;
+.btn {
+    border: 3px solid rgba(255, 255, 255, 0.75);
     border-radius: 5px;
-    padding: 0.5em 2em;
+    padding: 0.5em 1.5em;
 }
 
-.modal input[type='file'] {
+.layout article input[type="file"] {
     display: none;
+}
+
+@keyframes slideDown {
+    from {
+        margin-top: -300%;
+    }
+
+    to {
+        margin-top: 0%;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        margin-top: 0%;
+    }
+
+    to {
+        margin-top: -300%;
+    }
 }

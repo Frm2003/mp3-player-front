@@ -1,26 +1,26 @@
-class Lista {
+class ListaController {
     primeiro;
     ultimo;
     tamanho;
 
     constructor() {
-        this.primeiro = null
-        this.ultimo = null
-        this.tamanho = 0
+        this.primeiro = null;
+        this.ultimo = null;
+        this.tamanho = 0;
     }
 
     add(musica) {
         if (this.primeiro == null) {
-            this.primeiro = musica
-            this.ultimo = musica
-            return
+            this.primeiro = musica;
+            this.ultimo = musica;
+            return;
         }
 
-        this.ultimo.setProximo(musica)
-        musica.setAnterior(this.ultimo)
-        this.ultimo = musica
+        this.ultimo.setProximo(musica);
+        musica.setAnterior(this.ultimo);
+        this.ultimo = musica;
 
-        this.tamanho += 1
+        this.tamanho += 1;
     }
 
     remove(value) {
@@ -126,4 +126,4 @@ class Lista {
     }
 }
 
-export default Lista
+export { ListaController }

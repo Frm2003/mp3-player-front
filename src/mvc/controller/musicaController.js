@@ -1,0 +1,59 @@
+export function tocar(musica, control) {
+    if (control.audioAtual.var) { control.audioAtual.var.pause() }
+
+    const audio = new Audio(musica.caminho)
+    audio.play()
+
+    control.audioAtual.set(audio)
+    control.musicaAtual.set(musica)
+    control.estadoMusica.set('tocando')
+}
+
+export function avancar(musica, controle) {
+    if (musica.proximo == null) {
+        while (musica.anterior != null) { musica = musica.anterior }
+        tocar(musica, controle)
+        return
+    }
+    tocar(musica.proximo, controle)
+}
+
+export function voltar(musica, controle) {
+    if (musica.anterior == null) {
+        while (musica.proximo != null) { musica = musica.proximo }
+        tocar(musica, controle)
+        return
+    }
+    tocar(musica.anterior, controle)
+}
+
+/* 
+export function tocar(musica, controle) {
+    if (controle.audioAtual.var) { controle.audioAtual.var.pause() }
+
+    const audio = new Audio(musica.caminho)
+    audio.play()
+    
+    controle.audioAtual.set(audio)
+    controle.src.set(musica.caminho)
+    controle.estado.set('tocando')
+
+    audio.addEventListener('ended', () => avancar(musica, controle))
+}
+
+export function pausar(audioAtual, estado) {
+    if (audioAtual) {
+        audioAtual.pause()
+        estado('pausado')
+    }
+}
+
+export function continuar(audioAtual, estado) {
+    if (audioAtual) {
+        audioAtual.play()
+        estado('tocando')
+    }
+}
+
+
+*/

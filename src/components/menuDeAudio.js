@@ -1,78 +1,111 @@
 import menuStyle from '@/styles/menuDeAudio.module.css';
-import { avancar, continuar, pausar, tocar, voltar } from '../services/funcoesDeAudio';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause, faAngleDown, faBackward, faForward } from '@fortawesome/free-solid-svg-icons';
-import { useLayoutEffect, useRef } from 'react';
+import { avancar, voltar } from '@/mvc/controller/musicaController';
 
-export default function MenuDeAudio(musica, controle) {
-    const control = useRef(null);
+import { faPause, faPlay, faBackward, faForward, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useLayoutEffect, useState, useRef } from 'react';
+
+const calcHeight = () => {
+    const menuBarHeight = document.getElementById('menuBar')?.clientHeight || 0;
+    return `${menuBarHeight}px`
+}
+
+export default function MenuDeAudio({ musica, control }) {
     const miniInfo = useRef(null);
 
-    const pausarMusica = () => pausar(controle.audioAtual.var, controle.estado.set);
-    const continuarMusica = () => continuar(controle.audioAtual.var, controle.estado.set);
-    const avancarMusica = () => avancar(musica, controle);
-    const voltarMusica = () => voltar(musica, controle);
+    useLayoutEffect(() => {
+        miniInfo.current.style.bottom = calcHeight()
+    }, [])
 
-    const toggleControl = (e) => {
-        if (e.target.checked) {
-            control.current.style.bottom = '0';
-        } else {
-            control.current.style.bottom = `-${control.current.offsetHeight}px`;
-        }
-    };
+    const pausar = () => control.estadoMusica.set('pausado')
+    const continuar = () => control.estadoMusica.set('tocando')
+    const avancarMusica = () => avancar(musica, control)
+    const voltarMusica = () => voltar(musica, control)
+    //MODAL
+    const [show, setShow] = useState(false)
+    const abrirModal = () => setShow(true)
+    const fecharModal = () => setShow(false)
 
     return (
         <>
-            <section className={menuStyle.miniInfo} id="miniInfo" ref={miniInfo}>
-                <article>
-                    <div className={menuStyle.aling}>
-                        <label htmlFor="toggle" >
-                            <h3>{musica ? musica.nome : 'Selecione uma música'}</h3>
-                            <p>{musica ? musica.artista : '...'}</p>
-                        </label>
-                        <input type='checkbox' id='toggle' onChange={toggleControl} style={{ display: 'none' }} />
-                        <span>
-                            <FontAwesomeIcon
-                                icon={controle.estado.var === 'tocando' ? faPause : faPlay}
-                                onClick={() => controle.estado.var === 'tocando' ? pausarMusica() : continuarMusica()}
-                            />
-                        </span>
-                    </div>
-                    <progress
-                        id="progressRange"
-                        max={0}
-                        step="0.01"
-                        defaultValue={0}
-                    ></progress>
-                </article>
-            </section>
+            <div className={menuStyle.miniInfo} id="miniInfo" ref={miniInfo}>
+                <div className={menuStyle.aling}>
 
-            <div className={menuStyle.control} id="control" ref={control}>
-                <label className={menuStyle.controlHead} htmlFor='toggle' >
-                    <FontAwesomeIcon icon={faAngleDown} />
-                </label>
-                <div className={menuStyle.controlBody}>
-                    <div className={menuStyle.botoes}>
-                        <span>
-                            <FontAwesomeIcon icon={faBackward} onClick={voltarMusica} />
-                        </span>
-                        <span>
+                    <div className={menuStyle.info}>
+                        <label className={menuStyle.text} onClick={() => abrirModal()}>
+                            <h3>{musica ? musica.nome.replace('.mp3', '') : `Selecione uma musica`}</h3>
+                            <p>{musica ? musica.artista : `...`}</p>
+                        </label>
+                        <div className={menuStyle.icone}>
                             <FontAwesomeIcon
-                                icon={controle.estado.var === 'tocando' ? faPause : faPlay}
-                                onClick={() => controle.estado.var === 'tocando' ? pausarMusica() : continuarMusica()}
+                                icon={control.estadoMusica.var == 'tocando' ? faPause : faPlay} size='2x'
+                                onClick={() => control.estadoMusica.var == 'tocando' ? pausar() : continuar()}
                             />
-                        </span>
-                        <span>
-                            <FontAwesomeIcon icon={faForward} onClick={avancarMusica} />
-                        </span>
+                        </div>
                     </div>
+                    <progress></progress>
+
                 </div>
             </div>
+
+            <Control
+                show={show}
+                estado={control.estadoMusica.var}
+                funcFechar={fecharModal}
+                funcAudios={{
+                    pausar: pausar,
+                    continuar: continuar,
+                    avancar: avancarMusica,
+                    voltar: voltarMusica
+                }}
+            />
         </>
     );
 }
 
+function Control({ show, estado, funcFechar, funcAudios, }) {
+    const controlRef = useRef(null)
+
+    const fecharModal = () => {
+        let animation = controlRef.current.animate([
+            //from
+            { bottom: '0' },
+            //to
+            { bottom: '-500px' }
+        ], {
+            duration: 250, fill: 'forwards'
+        });
+
+        animation.onfinish = () => funcFechar();
+    };
+
+    const html =
+        <div className={menuStyle.control} id="control" ref={controlRef}>
+            <label className={menuStyle.controlHead} onClick={() => fecharModal()} >
+                <FontAwesomeIcon icon={faAngleDown} />
+            </label>
+            <div className={menuStyle.controlBody}>
+                <div className={menuStyle.botoes}>
+                    <span>
+                        <FontAwesomeIcon icon={faBackward} onClick={() => funcAudios.voltar()} />
+                    </span>
+                    <span>
+                        <FontAwesomeIcon
+                            icon={estado == 'tocando' ? faPause : faPlay}
+                            onClick={() => estado == 'tocando' ? funcAudios.pausar() : funcAudios.continuar()} />
+                    </span>
+                    <span>
+                        <FontAwesomeIcon icon={faForward} onClick={() => funcAudios.avancar()} />
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    return show ? html : null
+}
+
 /*
+
 
     useEffect(() => {
         if (varDeControle.audioAtual.var) {
