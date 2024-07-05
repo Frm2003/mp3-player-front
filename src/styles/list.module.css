@@ -1,7 +1,6 @@
 .listBody * {
     box-sizing: border-box;
     border-spacing: 0;
-    color: rgba(255, 255, 255, 1);
     margin: 0;
     padding: 0;
     outline: none;
@@ -32,7 +31,8 @@
     float: left;
 }
 
-.listBody li .funcs, .listBody li .type {
+.listBody li .funcs,
+.listBody li .type {
     align-items: center;
     display: flex;
     height: 40px;
@@ -59,4 +59,8 @@
 .listBody li .text p {
     font-size: 16px;
     opacity: 0.65;
+}
+
+.tocando {
+    color: rgb(29, 185, 84);
 }

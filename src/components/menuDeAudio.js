@@ -3,9 +3,9 @@ import { avancar, voltar } from '@/mvc/controller/musicaController';
 
 import { faPause, faPlay, faBackward, faForward, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useLayoutEffect, useState, useRef } from 'react';
+import { useLayoutEffect, useState, useRef, useEffect } from 'react';
 
-const calcHeight = () => {
+function calcHeight() {
     const menuBarHeight = document.getElementById('menuBar')?.clientHeight || 0;
     return `${menuBarHeight}px`
 }
@@ -17,10 +17,13 @@ export default function MenuDeAudio({ musica, control }) {
         miniInfo.current.style.bottom = calcHeight()
     }, [])
 
+    useEffect(() => {}, [])
+
     const pausar = () => control.estadoMusica.set('pausado')
     const continuar = () => control.estadoMusica.set('tocando')
     const avancarMusica = () => avancar(musica, control)
     const voltarMusica = () => voltar(musica, control)
+
     //MODAL
     const [show, setShow] = useState(false)
     const abrirModal = () => setShow(true)
@@ -43,7 +46,7 @@ export default function MenuDeAudio({ musica, control }) {
                             />
                         </div>
                     </div>
-                    <progress></progress>
+                    <progress value={0}></progress>
 
                 </div>
             </div>

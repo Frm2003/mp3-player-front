@@ -4,7 +4,6 @@ import homeStyle from '@/styles/home.module.css'
 import Modal from '@/components/modal';
 
 import ListaRender from '@/components/listaRender';
-
 import { ListaController } from '@/mvc/controller/listaController';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,9 +16,7 @@ export default function Home() {
 
     const [audioAtual, setAudioAtual] = useState(null);
     const [musicaAtual, setMusicaAtual] = useState(null);
-    const [estadoMusica, setEstadoMusica] = useState('pausado')
-
-    const [ordenou, setOrdenou] = useState(false)
+    const [estadoMusica, setEstadoMusica] = useState('pausado');
 
     const controleDeEstados = {
         audioAtual: { var: audioAtual, set: setAudioAtual },
@@ -27,27 +24,28 @@ export default function Home() {
         estadoMusica: { var: estadoMusica, set: setEstadoMusica }
     }
 
-    const ordenar = () => {
-        setOrdenou(true)
-        listaControl.mergeSort()
-    }
+    useEffect(() => { audioAtual && (audioAtual.addEventListener('pause', () => setEstadoMusica('pausado'))) }, [audioAtual])
+    useEffect(() => { audioAtual && ((estadoMusica == 'pausado') ? audioAtual.pause() : audioAtual.play()) }, [estadoMusica])
 
+    // SISTEMA PARA ORDENAR A LISTA
+    const [ordenou, setOrdenou] = useState(false)
+    const ordenar = () => { setOrdenou(true); listaControl.mergeSort() }
     useEffect(() => setOrdenou(false), [ordenou])
-
-    useEffect(() => {
-        if (audioAtual) {
-            if (estadoMusica == 'pausado') {
-                audioAtual.pause()
-            } else {
-                audioAtual.play()
-            }
-        }
-    }, [estadoMusica])
 
     //MODAL
     const [show, setShow] = useState(false)
     const abrirModal = () => setShow(true)
     const fecharModal = () => setShow(false)
+
+    //SISTEMA DE TROCA DE LISTAS
+    useEffect(() => slideShow(), [])
+    const slideShow = () => {
+        document.querySelectorAll('input[type="radio"]').forEach((input, index) => {
+            input.addEventListener('change', () => {
+                if (input.checked) document.querySelector('#s1').style.marginLeft = `-${20 * index}%`
+            })
+        })
+    }
 
     return (
         <>
@@ -64,7 +62,9 @@ export default function Home() {
                             <ListaRender list={listaControl.selectAll()} control={controleDeEstados} />
                         </div>
                         <div className={homeStyle.content}>
-                            <h2>Busca</h2>
+                            <div className={homeStyle.title}>
+                                <h2 id='h2'>Busca</h2>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -75,9 +75,9 @@ export default function Home() {
 
                 <article id="menuBar" className={homeStyle.menuBar}>
                     <div>
-                        <FontAwesomeIcon icon={faList} size="2x" />
+                        <label htmlFor='r1'><FontAwesomeIcon icon={faList} size="2x" /></label>
                         <FontAwesomeIcon icon={faPlus} size="4x" onClick={() => abrirModal()} />
-                        <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" />
+                        <label htmlFor='r2'><FontAwesomeIcon icon={faMagnifyingGlass} size="2x" /></label>
                     </div>
                 </article>
             </section>

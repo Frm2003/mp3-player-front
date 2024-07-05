@@ -7,6 +7,8 @@ export function tocar(musica, control) {
     control.audioAtual.set(audio)
     control.musicaAtual.set(musica)
     control.estadoMusica.set('tocando')
+
+    audio.addEventListener('ended', () => avancar(musica, control))
 }
 
 export function avancar(musica, controle) {
@@ -26,34 +28,3 @@ export function voltar(musica, controle) {
     }
     tocar(musica.anterior, controle)
 }
-
-/* 
-export function tocar(musica, controle) {
-    if (controle.audioAtual.var) { controle.audioAtual.var.pause() }
-
-    const audio = new Audio(musica.caminho)
-    audio.play()
-    
-    controle.audioAtual.set(audio)
-    controle.src.set(musica.caminho)
-    controle.estado.set('tocando')
-
-    audio.addEventListener('ended', () => avancar(musica, controle))
-}
-
-export function pausar(audioAtual, estado) {
-    if (audioAtual) {
-        audioAtual.pause()
-        estado('pausado')
-    }
-}
-
-export function continuar(audioAtual, estado) {
-    if (audioAtual) {
-        audioAtual.play()
-        estado('tocando')
-    }
-}
-
-
-*/
