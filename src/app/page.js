@@ -24,21 +24,6 @@ export default function Home() {
         estadoMusica: { var: estadoMusica, set: setEstadoMusica }
     }
 
-    useEffect(() => {
-        audioAtual && (
-            audioAtual.addEventListener('pause', () => setEstadoMusica('pausado')),
-            audioAtual.addEventListener('play', () => setEstadoMusica('tocando'))
-        )
-
-        return () => {
-            audioAtual && (
-                audioAtual.addEventListener('pause', () => setEstadoMusica('pausado')),
-                audioAtual.addEventListener('play', () => setEstadoMusica('tocando'))
-            )
-        };
-
-    }, [audioAtual])
-
     useEffect(() => { audioAtual && ((estadoMusica == 'pausado') ? audioAtual.pause() : audioAtual.play()) }, [estadoMusica])
 
     // SISTEMA PARA ORDENAR A LISTA
