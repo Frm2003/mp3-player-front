@@ -3,7 +3,7 @@
 import homeStyle from '@/styles/home.module.css'
 import Modal from '@/components/modal';
 
-import ListaRender from '@/components/listaRender';
+import Lista from '@/components/listaRender';
 import { ListaController } from '@/mvc/controller/listaController';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +13,7 @@ import MenuDeAudio from '@/components/menuDeAudio';
 
 export default function Home() {
     const [listaControl] = useState(new ListaController());
+    const [carregouLista, setCarregouLista] = useState(false);
 
     const [audioAtual, setAudioAtual] = useState(null);
     const [musicaAtual, setMusicaAtual] = useState(null);
@@ -25,6 +26,17 @@ export default function Home() {
     }
 
     useEffect(() => { audioAtual && ((estadoMusica == 'pausado') ? audioAtual.pause() : audioAtual.play()) }, [estadoMusica])
+
+    useEffect(() => {
+        const storedList = localStorage.getItem('listaMusicas');
+        if (storedList) {
+            const parsedList = JSON.parse(storedList);
+            listaControl.deserialize(parsedList)
+            setCarregouLista(true)
+            return
+        }
+        setCarregouLista(false)
+    }, [carregouLista])
 
     // SISTEMA PARA ORDENAR A LISTA
     const [ordenou, setOrdenou] = useState(false)
@@ -58,7 +70,7 @@ export default function Home() {
                                 <h2 id='h2'>Lista de Reprodução</h2>
                                 <FontAwesomeIcon icon={faArrowDownAZ} size="lg" onClick={() => ordenar()} />
                             </div>
-                            <ListaRender list={listaControl.selectAll()} control={controleDeEstados} />
+                            <Lista list={listaControl.selectAll()} control={controleDeEstados} />
                         </div>
                         <div className={homeStyle.content}>
                             <div className={homeStyle.title}>

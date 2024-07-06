@@ -21,10 +21,8 @@
 
 .listBody li {
     padding: 0.85em 0;
-}
-
-.listBody li {
     overflow: hidden;
+    transition: all 0.5s;
 }
 
 .listBody li div {

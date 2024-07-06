@@ -1,3 +1,5 @@
+import Musica from "../model/musica";
+
 class ListaController {
     primeiro;
     ultimo;
@@ -21,35 +23,6 @@ class ListaController {
         this.ultimo = musica;
 
         this.tamanho += 1;
-    }
-
-    remove(value) {
-        if (!this.isEmpty()) {
-            if (value == 0) {
-                this.primeiro = this.primeiro.proximo
-                return
-            }
-
-            let x = this.primeiro, pos = 0
-
-            while (pos < value) { x = x.proximo; pos += 1 }
-
-            let ant = x.anterior
-            let prox = x.proximo
-
-            ant.setProximo(prox)
-            prox.setAnterior(ant)
-        }
-    }
-
-    selectByPos(value) {
-        let x = this.primeiro
-        if (!this.isEmpty()) {
-            while (x.caminho.localeCompare(value)) {
-                x = x.proximo
-            }
-        }
-        return x
     }
 
     selectAll() {
@@ -123,6 +96,35 @@ class ListaController {
             atual = atual.proximo;
         }
         this.ultimo = atual;
+    }
+
+    loadFromLocalStorage() {
+        const storedList = localStorage.getItem('listaMusicas');
+        if (storedList) {
+            const parsedList = JSON.parse(storedList);
+            this.deserialize(parsedList);
+        }
+    }
+
+    serialize() {
+        const serializedList = [];
+        let current = this.primeiro;
+        while (current) {
+            serializedList.push(current.serialize());
+            current = current.proximo;
+        }
+        return serializedList;
+    }
+
+    deserialize(serializedList) {
+        this.primeiro = null;
+        this.ultimo = null;
+        this.tamanho = 0;
+
+        serializedList.forEach(item => {
+            const musica = new Musica(item.nome, item.artista, item.album, item.caminho);
+            this.add(musica);
+        });
     }
 }
 

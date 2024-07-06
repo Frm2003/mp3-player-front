@@ -12,7 +12,7 @@ const calcHeight = () => {
     return `${window.innerHeight - (menuBarHeight + h2Heigth + miniInfoHeight)}px`
 }
 
-export default function ListaRender({ list, control }) {
+export default function Lista({ list, control }) {
     const listaRef = useRef(null)
 
     useLayoutEffect(() => {

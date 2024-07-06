@@ -37,7 +37,8 @@ export default function Modal({ show, funcFechar, lista }) {
 
             lista.add(musica);
         }
-
+        
+        localStorage.setItem('listaMusicas', JSON.stringify(lista.serialize()))
         fecharModal();
     };
 

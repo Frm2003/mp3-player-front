@@ -18,6 +18,15 @@ class Musica {
     setProximo(proximo) {
         this.proximo = proximo
     }
+
+    serialize() {
+        return {
+            nome: this.nome,
+            album: this.album,
+            artista: this.artista,
+            caminho: this.caminho
+        };
+    }
 }
 
 export default Musica
