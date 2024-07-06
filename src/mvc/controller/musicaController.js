@@ -1,7 +1,8 @@
 export function tocar(musica, control) {
     if (control.audioAtual.var) { control.audioAtual.var.pause() }
 
-    const audio = new Audio(musica.caminho)
+    const urlAudio = URL.createObjectURL(musica.caminho)
+    const audio = new Audio(urlAudio)
     audio.play()
 
     control.audioAtual.set(audio)

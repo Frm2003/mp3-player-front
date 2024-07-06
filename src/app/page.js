@@ -27,17 +27,6 @@ export default function Home() {
 
     useEffect(() => { audioAtual && ((estadoMusica == 'pausado') ? audioAtual.pause() : audioAtual.play()) }, [estadoMusica])
 
-    useEffect(() => {
-        const storedList = localStorage.getItem('listaMusicas');
-        if (storedList) {
-            const parsedList = JSON.parse(storedList);
-            listaControl.deserialize(parsedList)
-            setCarregouLista(true)
-            return
-        }
-        setCarregouLista(false)
-    }, [carregouLista])
-
     // SISTEMA PARA ORDENAR A LISTA
     const [ordenou, setOrdenou] = useState(false)
     const ordenar = () => { setOrdenou(true); listaControl.mergeSort() }
@@ -96,3 +85,16 @@ export default function Home() {
         </>
     );
 }
+
+/*
+    useEffect(() => {
+        const storedList = localStorage.getItem('listaMusicas');
+        if (storedList) {
+            const parsedList = JSON.parse(storedList);
+            listaControl.deserialize(parsedList)
+            setCarregouLista(true)
+            return
+        }
+        setCarregouLista(false)
+    }, [carregouLista])
+*/

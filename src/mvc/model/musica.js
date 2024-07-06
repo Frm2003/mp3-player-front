@@ -2,10 +2,11 @@ class Musica {
     anterior;
     proximo;
 
-    constructor(nome, album, artista, caminho) {
+    constructor(nome, album, artista, arquivo, caminho) {
         this.nome = nome;
         this.album = album;
         this.artista = artista;
+        this.arquivo = arquivo;
         this.caminho = caminho;
         this.anterior = null;
         this.proximo = null;

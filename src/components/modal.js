@@ -23,7 +23,7 @@ export default function Modal({ show, funcFechar, lista }) {
 
     const fileSelect = (event) => {
         const files = event.target.files;
-
+            
         for (let i = 0; i < files.length; i++) {
             const fileName = files[i].name;
             const info = fileName.split("-").map(part => part.trim());
@@ -32,13 +32,22 @@ export default function Modal({ show, funcFechar, lista }) {
                 info.length > 2 ? info[2].trim() : info[1].trim(),
                 info.length > 2 ? info[1] : null,
                 info[0],
-                URL.createObjectURL(files[i])
+                files[i],
+                null
             );
 
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const blob = new Blob([event.target.result], { type: musica.arquivo.type });
+                musica.caminho = blob;
+            };
+            reader.readAsArrayBuffer(files[i]);
+
             lista.add(musica);
+            console.log(musica)
         }
         
-        localStorage.setItem('listaMusicas', JSON.stringify(lista.serialize()))
+        //localStorage.setItem('listaMusicas', JSON.stringify(lista.serialize()))
         fecharModal();
     };
 

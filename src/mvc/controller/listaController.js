@@ -122,7 +122,12 @@ class ListaController {
         this.tamanho = 0;
 
         serializedList.forEach(item => {
-            const musica = new Musica(item.nome, item.artista, item.album, item.caminho);
+            const musica = new Musica(
+                item.nome,
+                item.artista,
+                item.album,
+                item.caminho
+            );
             this.add(musica);
         });
     }
