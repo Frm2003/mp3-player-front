@@ -29,6 +29,14 @@ export default function Home() {
             audioAtual.addEventListener('pause', () => setEstadoMusica('pausado')),
             audioAtual.addEventListener('play', () => setEstadoMusica('tocando'))
         )
+
+        return () => {
+            audioAtual && (
+                audioAtual.addEventListener('pause', () => setEstadoMusica('pausado')),
+                audioAtual.addEventListener('play', () => setEstadoMusica('tocando'))
+            )
+        };
+
     }, [audioAtual])
 
     useEffect(() => { audioAtual && ((estadoMusica == 'pausado') ? audioAtual.pause() : audioAtual.play()) }, [estadoMusica])
