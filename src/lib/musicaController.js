@@ -1,8 +1,12 @@
-export function tocar(musica, control) {
+const tocar = (musica, control) => {
     if (control.audioAtual.var) { control.audioAtual.var.pause() }
 
-    const urlAudio = URL.createObjectURL(musica.caminho)
-    const audio = new Audio(urlAudio)
+    const audio = new Audio(musica.caminho)
+
+    audio.addEventListener('loadedmetadata', () => {
+        control.duracaoMusica.set(audio.duration)
+    })
+    
     audio.play()
 
     control.audioAtual.set(audio)
@@ -12,7 +16,7 @@ export function tocar(musica, control) {
     audio.addEventListener('ended', () => avancar(musica, control))
 }
 
-export function avancar(musica, controle) {
+const avancar = (musica, controle) => {
     if (musica.proximo == null) {
         while (musica.anterior != null) { musica = musica.anterior }
         tocar(musica, controle)
@@ -21,7 +25,7 @@ export function avancar(musica, controle) {
     tocar(musica.proximo, controle)
 }
 
-export function voltar(musica, controle) {
+const voltar = (musica, controle) => {
     if (musica.anterior == null) {
         while (musica.proximo != null) { musica = musica.proximo }
         tocar(musica, controle)
@@ -29,3 +33,5 @@ export function voltar(musica, controle) {
     }
     tocar(musica.anterior, controle)
 }
+
+export { avancar, voltar, tocar }

@@ -1,5 +1,5 @@
 import listStyle from '@/styles/list.module.css';
-import { tocar } from '@/mvc/controller/musicaController';
+import { tocar } from '@/lib/musicaController';
 
 import { useLayoutEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

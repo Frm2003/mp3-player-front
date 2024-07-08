@@ -3,26 +3,27 @@
 import homeStyle from '@/styles/home.module.css'
 import Modal from '@/components/modal';
 
-import Lista from '@/components/listaRender';
-import { ListaController } from '@/mvc/controller/listaController';
+import Lista from '@/components/lista';
+import DisplayAudio from '@/components/displayAudio';
+import { list } from '@/lib/list';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDownAZ, faPlus, faMagnifyingGlass, faList } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import MenuDeAudio from '@/components/menuDeAudio';
 
 export default function Home() {
-    const [listaControl] = useState(new ListaController());
-    const [carregouLista, setCarregouLista] = useState(false);
+    const [listaControl] = useState(new list());
 
     const [audioAtual, setAudioAtual] = useState(null);
     const [musicaAtual, setMusicaAtual] = useState(null);
     const [estadoMusica, setEstadoMusica] = useState('pausado');
+    const [duracaoMusica, setDuracaoMusica] = useState(0)
 
     const controleDeEstados = {
         audioAtual: { var: audioAtual, set: setAudioAtual },
         musicaAtual: { var: musicaAtual, set: setMusicaAtual },
-        estadoMusica: { var: estadoMusica, set: setEstadoMusica }
+        estadoMusica: { var: estadoMusica, set: setEstadoMusica },
+        duracaoMusica: { var: duracaoMusica, set: setDuracaoMusica }
     }
 
     useEffect(() => { audioAtual && ((estadoMusica == 'pausado') ? audioAtual.pause() : audioAtual.play()) }, [estadoMusica])
@@ -33,11 +34,11 @@ export default function Home() {
     useEffect(() => setOrdenou(false), [ordenou])
 
     //MODAL
-    const [show, setShow] = useState(false)
-    const abrirModal = () => setShow(true)
-    const fecharModal = () => setShow(false)
+    const [estadoModal, setEstadoModal] = useState(false)
+    const abrirModal = () => setEstadoModal(true)
+    const fecharModal = () => setEstadoModal(false)
 
-    //SISTEMA DE TROCA DE LISTAS
+    //SISTEMA DE CARROSEL CSS
     useEffect(() => slideShow(), [])
     const slideShow = () => {
         document.querySelectorAll('input[type="radio"]').forEach((input, index) => {
@@ -70,7 +71,7 @@ export default function Home() {
                 </article>
 
                 <article>
-                    <MenuDeAudio musica={musicaAtual} control={controleDeEstados} />
+                    <DisplayAudio musica={musicaAtual} control={controleDeEstados} />
                 </article>
 
                 <article id="menuBar" className={homeStyle.menuBar}>
@@ -81,20 +82,7 @@ export default function Home() {
                     </div>
                 </article>
             </section>
-            <Modal show={show} funcFechar={fecharModal} lista={listaControl} />
+            <Modal show={estadoModal} funcFechar={fecharModal} lista={listaControl} />
         </>
     );
 }
-
-/*
-    useEffect(() => {
-        const storedList = localStorage.getItem('listaMusicas');
-        if (storedList) {
-            const parsedList = JSON.parse(storedList);
-            listaControl.deserialize(parsedList)
-            setCarregouLista(true)
-            return
-        }
-        setCarregouLista(false)
-    }, [carregouLista])
-*/

@@ -1,4 +1,4 @@
-import Musica from "@/mvc/model/musica";
+import Musica from "@/lib/musicaModel";
 import modalStyle from "@/styles/modal.module.css";
 
 import { useRef } from 'react';
@@ -32,22 +32,12 @@ export default function Modal({ show, funcFechar, lista }) {
                 info.length > 2 ? info[2].trim() : info[1].trim(),
                 info.length > 2 ? info[1] : null,
                 info[0],
-                files[i],
-                null
+                URL.createObjectURL(files[i]),
             );
 
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const blob = new Blob([event.target.result], { type: musica.arquivo.type });
-                musica.caminho = blob;
-            };
-            reader.readAsArrayBuffer(files[i]);
-
             lista.add(musica);
-            console.log(musica)
         }
         
-        //localStorage.setItem('listaMusicas', JSON.stringify(lista.serialize()))
         fecharModal();
     };
 

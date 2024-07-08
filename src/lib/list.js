@@ -1,6 +1,6 @@
-import Musica from "../model/musica";
+import Musica from "./musicaModel";
 
-class ListaController {
+class list {
     primeiro;
     ultimo;
     tamanho;
@@ -97,40 +97,6 @@ class ListaController {
         }
         this.ultimo = atual;
     }
-
-    loadFromLocalStorage() {
-        const storedList = localStorage.getItem('listaMusicas');
-        if (storedList) {
-            const parsedList = JSON.parse(storedList);
-            this.deserialize(parsedList);
-        }
-    }
-
-    serialize() {
-        const serializedList = [];
-        let current = this.primeiro;
-        while (current) {
-            serializedList.push(current.serialize());
-            current = current.proximo;
-        }
-        return serializedList;
-    }
-
-    deserialize(serializedList) {
-        this.primeiro = null;
-        this.ultimo = null;
-        this.tamanho = 0;
-
-        serializedList.forEach(item => {
-            const musica = new Musica(
-                item.nome,
-                item.artista,
-                item.album,
-                item.caminho
-            );
-            this.add(musica);
-        });
-    }
 }
 
-export { ListaController }
+export { list }
