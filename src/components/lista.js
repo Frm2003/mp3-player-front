@@ -30,7 +30,7 @@ export default function Lista({ list, control }) {
                         </div>
                         <div className={listStyle.text} onClick={() => tocar(musica, control)}>
                             <h3>{musica.nome.replace('.mp3', '')}</h3>
-                            <p>{musica.album ? `${musica.album}, ` : ''} {musica.artista}</p>
+                            <p style={{ whiteSpace: 'nowrap' }}>{musica.album ? `${musica.album}, ` : ''} {musica.artista}</p>
                         </div>
                         <div className={listStyle.funcs}>
                             <FontAwesomeIcon icon={faEllipsis} />

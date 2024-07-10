@@ -43,9 +43,12 @@
 }
 
 .listBody li .text {
-    overflow: scroll;
     width: 78%;
     margin: 0 0.5%;
+    overflow-x: scroll;
+}
+
+.listBody li .text div {
 }
 
 .listBody li .text h3 {
