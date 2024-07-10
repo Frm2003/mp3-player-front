@@ -5,15 +5,15 @@ import { useLayoutEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis, faFileAudio } from '@fortawesome/free-solid-svg-icons';
 
-const calcHeight = () => {
-    const menuBarHeight = document.getElementById('menuBar')?.clientHeight || 0;
-    const miniInfoHeight = document.getElementById('miniInfo')?.clientHeight || 0;
-    const h2Heigth = document.getElementById('h2')?.clientHeight || 0;
-    return `${window.innerHeight - (menuBarHeight + h2Heigth + miniInfoHeight)}px`
-}
-
 export default function Lista({ list, control }) {
     const listaRef = useRef(null)
+
+    const calcHeight = () => {
+        const menuBarHeight = document.getElementById('menuBar')?.clientHeight || 0;
+        const miniInfoHeight = document.getElementById('miniInfo')?.clientHeight || 0;
+        const h2Heigth = document.getElementById('h2')?.clientHeight || 0;
+        return `${window.innerHeight - (menuBarHeight + h2Heigth + miniInfoHeight)}px`
+    }
 
     useLayoutEffect(() => {
         listaRef.current.style.height = calcHeight()

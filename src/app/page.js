@@ -13,7 +13,6 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
     const [listaControl] = useState(new list());
-    const [lista, setLista] = useState([]);
 
     const [audioAtual, setAudioAtual] = useState(null);
     const [musicaAtual, setMusicaAtual] = useState(null);
@@ -61,7 +60,7 @@ export default function Home() {
                                 <h2 id='h2'>Lista de Reprodução</h2>
                                 <FontAwesomeIcon icon={faArrowDownAZ} size="lg" onClick={() => ordenar()} />
                             </div>
-                            <Lista list={lista} control={controleDeEstados} />
+                            <Lista list={listaControl.selectAll()} control={controleDeEstados} />
                         </div>
                         <div className={homeStyle.content}>
                             <div className={homeStyle.title}>
@@ -83,7 +82,7 @@ export default function Home() {
                     </div>
                 </article>
             </section>
-            <Modal show={estadoModal} setLista={setLista} funcFechar={fecharModal} lista={listaControl} />
+            <Modal show={estadoModal} funcFechar={fecharModal} lista={listaControl} />
         </>
     );
 }
