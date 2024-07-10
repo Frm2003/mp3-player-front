@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Modal({ show, funcFechar, lista }) {
+export default function Modal({ show, setLista, funcFechar, lista }) {
     const modalRef = useRef(null);
 
     const fecharModal = () => {
@@ -38,6 +38,8 @@ export default function Modal({ show, funcFechar, lista }) {
             lista.add(musica);
         }
         
+        setLista(lista.selectAll())
+
         fecharModal();
     };
 

@@ -39,11 +39,17 @@ export default function ControleDeAudio({ show, onclick, musica, control }) {
     }, [control.audioAtual.var])
 
 
-    function changeDuracao(e) {
+    const changeDuracao = (e) => {
         const newTime = parseFloat(e.target.value);
         if (control.audioAtual.var) {
             control.audioAtual.var.currentTime = newTime;
         }
+    }
+
+    const getDuracao = (duracao) => {
+        const tempoEmMinutos = Math.floor(duracao / 60);
+        const tempoEnSegundos = Math.floor(duracao % 60);
+        return `${tempoEmMinutos}:${tempoEnSegundos.toString().padStart(2, '0')}`
     }
 
     //FUNÇÕES DE AUDIO
@@ -92,10 +98,4 @@ export default function ControleDeAudio({ show, onclick, musica, control }) {
         </div>
 
     return show ? html : null
-}
-
-function getDuracao(duracao) {
-    const tempoEmMinutos = Math.floor(duracao / 60);
-    const tempoEnSegundos = Math.floor(duracao % 60);
-    return `${tempoEmMinutos}:${tempoEnSegundos.toString().padStart(2, '0')}`
 }
