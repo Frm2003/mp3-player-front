@@ -1,0 +1,37 @@
+.menu * {
+	box-sizing: border-box;
+	border-spacing: 0;
+	margin: 0;
+	padding: 0;
+	outline: none;
+	text-decoration: none;
+}
+
+.menu {
+	bottom: 0;
+	margin: auto;
+	padding: 0.5em 0;
+	position: fixed;
+	width: 100%;
+	z-index: 0;
+}
+
+.menu div {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	margin: auto;
+	width: 70%;
+}
+
+.menu div button {
+	align-items: center;
+	background: none;
+	border: 3px solid;
+	border-radius: 50%;
+	color: white;
+	display: flex;
+	height: 60px;
+	justify-content: center;
+	width: 60px;
+}

@@ -1,0 +1,44 @@
+{
+	"extends": [
+		"next/core-web-vitals",
+		"plugin:prettier/recommended"
+	],
+	"plugins": [
+		"filenames"
+	],
+	"rules": {
+		"indent": [
+			"error",
+			4
+		],
+		"quotes": [
+			"error",
+			"single",
+			{
+				"avoidEscape": true
+			}
+		],
+		"space-in-parens": "off",
+		"comma-spacing": [
+			"error",
+			{
+				"before": false,
+				"after": true
+			}
+		],
+		"import/order": [
+			"error",
+			{
+				"groups": [
+					[
+						"builtin",
+						"external",
+						"internal"
+					]
+				],
+				"newlines-between": "always"
+			}
+		]
+	}
+}
+// "filenames/match-regex": [2, "^[A-Z].*\\.js$", true]
