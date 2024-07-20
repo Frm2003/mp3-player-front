@@ -1,0 +1,36 @@
+.body {
+	overflow-y: scroll;
+}
+
+.body li {
+	align-items: center;
+	display: flex;
+	padding: 0.75em 0;
+	overflow: hidden;
+	width: 100%;
+}
+
+.body li div {
+	float: left;
+}
+
+.body li div:nth-child(odd) {
+	color: rgba(255, 255, 255, 0.5);
+	text-align: center;
+	width: 12%;
+}
+
+.body li div:nth-child(even) {
+	width: 76%;
+}
+
+.body li div h3 {
+	font-size: 15px;
+	padding: 0.25em 0;
+}
+
+.body li div p {
+	color: rgba(255, 255, 255, 0.5);
+	font-size: 15px;
+	padding: 0.25em 0;
+}

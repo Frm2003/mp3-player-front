@@ -5,11 +5,11 @@ import { useRef } from 'react';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useList } from '@/context/listContext';
+import { useList } from '@/context/listaContext';
 
 export default function Modal({ show, funcFechar }) {
-	const modalRef = useRef(null);
 	const { lista } = useList();
+	const modalRef = useRef(null);
 
 	const fecharModal = () => {
 		let animation = modalRef.current.animate(
@@ -34,13 +34,12 @@ export default function Modal({ show, funcFechar }) {
 				info.length > 2 ? info[2].trim() : info[1].trim(),
 				info.length > 2 ? info[1] : null,
 				info[0],
-				URL.createObjectURL(files[i])
+				URL.createObjectURL(files[i]),
+				'arquivo'
 			);
 
 			lista.add(musica);
 		}
-
-		console.log(lista.selectAll())
 
 		fecharModal();
 	};

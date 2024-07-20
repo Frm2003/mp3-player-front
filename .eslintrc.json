@@ -1,16 +1,8 @@
 {
-	"extends": [
-		"next/core-web-vitals",
-		"plugin:prettier/recommended"
-	],
-	"plugins": [
-		"filenames"
-	],
+	"extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+	"plugins": ["filenames"],
 	"rules": {
-		"indent": [
-			"error",
-			4
-		],
+		"indent": ["error", 4],
 		"quotes": [
 			"error",
 			"single",
@@ -29,16 +21,12 @@
 		"import/order": [
 			"error",
 			{
-				"groups": [
-					[
-						"builtin",
-						"external",
-						"internal"
-					]
-				],
+				"groups": [["builtin", "external", "internal"]],
 				"newlines-between": "always"
 			}
 		]
 	}
 }
+
+
 // "filenames/match-regex": [2, "^[A-Z].*\\.js$", true]
