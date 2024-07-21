@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from 'react';
 
 import { useList } from '@/context/listaContext';
+import { useEstadosMusica } from '@/context/estadoMusicaContext';
 
 const styleTitle = {
 	alingItens: 'center',
@@ -33,11 +34,22 @@ const contentCaurosel1 = () => {
 		setDisplayComponent(document.querySelector('#displayAudio'));
 	}, []);
 
+	const [ordenou, setOrdenou] = useState(false);
+	const ordenar = () => {
+		lista.mergeSort();
+		setOrdenou(false);
+	};
+	useEffect(() => setOrdenou(true), [ordenou]);
+
 	return (
 		<>
 			<div style={styleTitle}>
 				<h2>Lista de Reprodução</h2>
-				<FontAwesomeIcon icon={faArrowDownAZ} size="2x" />
+				<FontAwesomeIcon
+					icon={faArrowDownAZ}
+					size="2x"
+					onClick={ordenar}
+				/>
 			</div>
 			{navComponent && (
 				<Lista
@@ -65,6 +77,15 @@ const contentCaurosel2 = () => {
 };
 
 export default function Home() {
+	const { info } = useEstadosMusica();
+
+	useEffect(() => {
+		info.audioAtual &&
+			(info.estado == 'pausado'
+				? info.audioAtual.pause()
+				: info.audioAtual.play());
+	}, [info.estado]);
+
 	useEffect(() => {
 		document
 			.querySelector('#openModal')

@@ -9,12 +9,28 @@ import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 export default function DisplayAudio() {
 	const displayRef = useRef();
-	const { info } = useEstadosMusica();
+	const { info, setInfo } = useEstadosMusica();
 
 	useLayoutEffect(() => {
 		displayRef.current.style.bottom =
 			document.querySelector('nav').clientHeight;
 	}, []);
+
+	const pausar = () => {
+		setInfo({
+			estado: 'pausado',
+			audioAtual: info.audioAtual,
+			musicaAtual: info.musicaAtual,
+		});
+	};
+
+	const continuar = () => {
+		setInfo({
+			estado: 'tocando',
+			audioAtual: info.audioAtual,
+			musicaAtual: info.musicaAtual,
+		});
+	};
 
 	return (
 		<section
@@ -38,7 +54,12 @@ export default function DisplayAudio() {
 					</div>
 					<div className={displayStyle.icon}>
 						<FontAwesomeIcon
-							icon={info.estado == 'pausado' ? faPause : faPlay}
+							icon={info.estado == 'pausado' ? faPlay : faPause}
+							onClick={() =>
+								info.estado == 'pausado'
+									? continuar()
+									: pausar()
+							}
 							size="2x"
 						/>
 					</div>
