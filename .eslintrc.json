@@ -2,7 +2,7 @@
 	"extends": ["next", "prettier"],
 	"plugins": ["filenames"],
 	"rules": {
-		"indent": ["error", 4],
+		"indent": ["error", 4], // Configura a indentação para 4 espaços
 		"quotes": [
 			"error",
 			"single",
@@ -22,7 +22,11 @@
 			"error",
 			{
 				"groups": [["builtin", "external", "internal"]],
-				"newlines-between": "always"
+				"newlines-between": "never",
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				}
 			}
 		]
 	}
