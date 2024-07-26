@@ -1,23 +1,23 @@
 .slideBody {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .slideBody * {
-	color: white;
-	margin: 0;
-	padding: 0;
+    color: white;
+    margin: 0;
+    padding: 0;
 }
 
 .slides {
-	width: 500%;
-	display: flex;
+    width: 500%;
+    display: flex;
 }
 
 .slides input[name='r'] {
-	display: none;
+    display: none;
 }
 
 .slides .content {
-	width: 20%;
-	transition: 0.5s;
+    width: 20%;
+    transition: 0.5s;
 }

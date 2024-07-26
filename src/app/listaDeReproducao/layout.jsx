@@ -1,17 +1,16 @@
-import Nav from '@/components/nav';
 import DisplayAudio from '@/components/displayAudio';
+import Nav from '@/components/nav';
+import {EstadosMusicaProvider} from '@/context/estadoMusicaContext';
+import {ListaProvider} from '@/context/listaContext';
 
-import { ListaProvider } from '@/context/listaContext';
-import { EstadosMusicaProvider } from '@/context/estadoMusicaContext';
-
-export default function ListaDeReproducaoLayout({ children }) {
-	return (
-		<ListaProvider>
-			<EstadosMusicaProvider>
-				{children}
-				<DisplayAudio />
-			</EstadosMusicaProvider>
-			<Nav />
-		</ListaProvider>
-	);
+export default function ListaDeReproducaoLayout({children}) {
+    return (
+        <ListaProvider>
+            <EstadosMusicaProvider>
+                {children}
+                <DisplayAudio />
+            </EstadosMusicaProvider>
+            <Nav />
+        </ListaProvider>
+    );
 }

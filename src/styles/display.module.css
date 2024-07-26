@@ -1,52 +1,52 @@
 .body * {
-	box-sizing: border-box;
-	border-spacing: 0;
-	color: rgba(255, 255, 255, 1);
-	margin: 0;
-	padding: 0;
-	outline: none;
-	text-decoration: none;
+    box-sizing: border-box;
+    border-spacing: 0;
+    color: rgba(255, 255, 255, 1);
+    margin: 0;
+    padding: 0;
+    outline: none;
+    text-decoration: none;
 }
 
 .body {
-	bottom: 76px;
-	position: fixed;
-	width: 100%;
+    bottom: 76px;
+    position: fixed;
+    width: 100%;
 }
 
 .body article {
-	background: rgba(33, 32, 32, 1);
-	margin: auto;
-	text-align: center;
-	width: 98%;
+    background: rgba(33, 32, 32, 1);
+    margin: auto;
+    text-align: center;
+    width: 98%;
 }
 
 .body article .aling {
-	padding: 0.5em 0.5em 0 0.5em;
-	overflow: hidden;
+    padding: 0.5em 0.5em 0 0.5em;
+    overflow: hidden;
 }
 
 .body article .aling .text {
-	float: left;
-	text-align: justify;
-	width: 80%;
+    float: left;
+    text-align: justify;
+    width: 80%;
 }
 
 .body article .aling .text h3 {
-	font-size: 20px;
+    font-size: 20px;
 }
 
 .body article .aling .text p {
-	color: rgba(255, 255, 255, 0.5);
-	font-size: 17px;
-	padding-top: 0.25em;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 17px;
+    padding-top: 0.25em;
 }
 
 .body article progress {
-	background: black;
-	border: none;
-	border-radius: 5px;
-	color: white;
-	height: 1px;
-	width: 96%;
+    background: black;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    height: 1px;
+    width: 96%;
 }

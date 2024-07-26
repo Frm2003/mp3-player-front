@@ -1,35 +1,36 @@
 {
-	"extends": ["next", "prettier"],
-	"plugins": ["filenames"],
-	"rules": {
-		"indent": ["error", 4], // Configura a indentação para 4 espaços
-		"quotes": [
-			"error",
-			"single",
-			{
-				"avoidEscape": true
-			}
-		],
-		"space-in-parens": "off",
-		"comma-spacing": [
-			"error",
-			{
-				"before": false,
-				"after": true
-			}
-		],
-		"import/order": [
-			"error",
-			{
-				"groups": [["builtin", "external", "internal"]],
-				"newlines-between": "never",
-				"alphabetize": {
-					"order": "asc",
-					"caseInsensitive": true
-				}
-			}
-		]
-	}
+    "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+    "rules": {
+        "indent": ["error", 4], // Confere com a configuração "tabWidth": 4 do Prettier
+        "quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true
+            }
+        ],
+        "space-in-parens": "off", // Deixe o Prettier cuidar disso
+        "comma-spacing": [
+            "error",
+            {
+                "before": false,
+                "after": true
+            }
+        ],
+        "import/order": [
+            "error",
+            {
+                "groups": [["builtin", "external", "internal"]],
+                "newlines-between": "always"
+            }
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxEOF": 0,
+                "maxBOF": 0
+            }
+        ]
+    }
 }
-
-// "filenames/match-regex": [2, "^[A-Z].*\\.js$", true]

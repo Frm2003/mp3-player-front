@@ -1,19 +1,20 @@
 'use client';
 
-import { Lista } from '@/lib/classeLista';
-import { createContext, useContext, useState } from 'react';
+import {createContext, useContext, useState} from 'react';
+
+import {Lista} from '@/lib/classeLista';
 
 const lista = new Lista();
 const ListaContext = createContext(lista);
 
-export const ListaProvider = ({ children }) => {
-	const [lista] = useState(new Lista());
+export const ListaProvider = ({children}) => {
+    const [lista] = useState(new Lista());
 
-	return (
-		<ListaContext.Provider value={{ lista }}>
-			{children}
-		</ListaContext.Provider>
-	);
+    return (
+        <ListaContext.Provider value={{lista}}>
+            {children}
+        </ListaContext.Provider>
+    );
 };
 
 export const useList = () => useContext(ListaContext);
