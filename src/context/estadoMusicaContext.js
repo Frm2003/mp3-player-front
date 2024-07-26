@@ -6,6 +6,7 @@ const controleMusica = {
 	estado: 'pausado',
 	audioAtual: null,
 	musicaAtual: null,
+	duracao: null,
 };
 
 const EstadosContext = createContext(controleMusica);
@@ -15,6 +16,7 @@ export const EstadosMusicaProvider = ({ children }) => {
 		estado: 'pausado',
 		audioAtual: null,
 		musicaAtual: null,
+		duracao: null,
 	});
 
 	return (

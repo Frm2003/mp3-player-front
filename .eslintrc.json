@@ -1,5 +1,5 @@
 {
-	"extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+	"extends": ["next", "prettier"],
 	"plugins": ["filenames"],
 	"rules": {
 		"indent": ["error", 4],
@@ -27,6 +27,5 @@
 		]
 	}
 }
-
 
 // "filenames/match-regex": [2, "^[A-Z].*\\.js$", true]
