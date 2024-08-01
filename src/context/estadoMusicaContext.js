@@ -1,6 +1,6 @@
 'use client';
 
-import {createContext, useContext, useState} from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const controleMusica = {
     estado: 'pausado',
@@ -11,7 +11,7 @@ const controleMusica = {
 
 const EstadosContext = createContext(controleMusica);
 
-export const EstadosMusicaProvider = ({children}) => {
+export const EstadosMusicaProvider = ({ children }) => {
     const [info, setInfo] = useState({
         estado: 'pausado',
         audioAtual: null,
@@ -20,7 +20,7 @@ export const EstadosMusicaProvider = ({children}) => {
     });
 
     return (
-        <EstadosContext.Provider value={{info, setInfo}}>
+        <EstadosContext.Provider value={{ info, setInfo }}>
             {children}
         </EstadosContext.Provider>
     );

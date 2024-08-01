@@ -11,7 +11,7 @@
     background: rgba(41, 37, 37, 1);
     bottom: 0;
     margin: auto;
-    padding: 0.5em 0;
+    padding: 0.75em 0;
     position: fixed;
     width: 100%;
     z-index: 0;
@@ -20,9 +20,9 @@
 .menu div {
     align-items: center;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     margin: auto;
-    width: 70%;
+    width: 90%;
 }
 
 .menu div button {

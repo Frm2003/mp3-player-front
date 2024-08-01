@@ -1,18 +1,24 @@
-import {useRef} from 'react';
-import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { useRef } from 'react';
+import {
+    faClose,
+    faBackward,
+    faForward,
+    faPlay,
+    faChevronDown,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {useList} from '@/context/listaContext';
+import { useList } from '@/context/listaContext';
 import Musica from '@/lib/classeMusica';
 import modalStyle from '@/styles/modal.module.css';
 
-export default function Modal({show, funcFechar}) {
-    const {lista} = useList();
+export function Modal({ show, funcFechar }) {
+    const { lista } = useList();
     const modalRef = useRef(null);
 
     const fecharModal = () => {
         let animation = modalRef.current.animate(
-            [{marginTop: '0%'}, {marginTop: '-300%'}],
+            [{ marginTop: '0%' }, { marginTop: '-300%' }],
             {
                 duration: 250,
                 fill: 'forwards',
@@ -46,7 +52,7 @@ export default function Modal({show, funcFechar}) {
     const html = (
         <section ref={modalRef} className={modalStyle.layout}>
             <article>
-                <div style={{textAlign: 'right'}}>
+                <div style={{ textAlign: 'right' }}>
                     <FontAwesomeIcon
                         icon={faClose}
                         size="2x"
@@ -63,6 +69,53 @@ export default function Modal({show, funcFechar}) {
                     multiple
                     onChange={fileSelect}
                 />
+            </article>
+        </section>
+    );
+
+    return show ? html : null;
+}
+
+export function ModalBottom({ show, funcFechar }) {
+    const modalRef = useRef(null);
+    const fecharModal = () => {
+        let animation = modalRef.current.animate(
+            [{ bottom: '0%' }, { bottom: '-500px' }],
+            {
+                duration: 250,
+                fill: 'forwards',
+            }
+        );
+
+        animation.onfinish = () => funcFechar();
+    };
+
+    const html = (
+        <section className={modalStyle.layout2}>
+            <article ref={modalRef}>
+                <FontAwesomeIcon
+                    className={modalStyle.icone}
+                    icon={faChevronDown}
+                    onClick={() => fecharModal()}
+                />
+                <div className={modalStyle.botoes}>
+                    <span>
+                        <FontAwesomeIcon icon={faBackward} />
+                    </span>
+                    <span>
+                        <FontAwesomeIcon icon={faPlay} />
+                    </span>
+                    <span>
+                        <FontAwesomeIcon icon={faForward} />
+                    </span>
+                </div>
+                <div className={modalStyle.tempo}>
+                    <input type={'range'} />
+                    <div>
+                        <p>0:00</p>
+                        <p>0:00</p>
+                    </div>
+                </div>
             </article>
         </section>
     );

@@ -1,10 +1,11 @@
 'use client';
 
-import {Fragment, useEffect} from 'react';
+import { Fragment, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import carouselStyle from '@/styles/carousel.module.css';
 
-export default function Carousel({contents}) {
+export function Carousel({ contents }) {
     useEffect(() => slide(), []);
 
     const slide = () => {
@@ -27,7 +28,7 @@ export default function Carousel({contents}) {
                         <input type="radio" name="r" id={`r${index}`} />
                         <div
                             className={carouselStyle.content}
-                            id={index == 1 ? 's1' : 's'}
+                            id={index == 0 ? 's1' : 's'}
                         >
                             {content}
                         </div>
@@ -35,5 +36,13 @@ export default function Carousel({contents}) {
                 ))}
             </div>
         </div>
+    );
+}
+
+export function ItemCarousel({ icon, pos }) {
+    return (
+        <label htmlFor={`r${pos}`}>
+            <FontAwesomeIcon icon={icon} size={'2x'} />
+        </label>
     );
 }

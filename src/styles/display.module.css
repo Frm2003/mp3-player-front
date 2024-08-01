@@ -9,13 +9,15 @@
 }
 
 .body {
-    bottom: 76px;
+    bottom: 84px;
     position: fixed;
     width: 100%;
 }
 
 .body article {
     background: rgba(33, 32, 32, 1);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     margin: auto;
     text-align: center;
     width: 98%;
@@ -43,7 +45,7 @@
 }
 
 .body article progress {
-    background: black;
+    background: none;
     border: none;
     border-radius: 5px;
     color: white;

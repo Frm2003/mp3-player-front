@@ -4,7 +4,7 @@ export function tocar(musica, audioAtual, setInfo) {
     const audio = new Audio(musica.caminho);
     audio.play();
 
-    setInfo({estado: 'tocando', audioAtual: audio, musicaAtual: musica});
+    setInfo({ estado: 'tocando', audioAtual: audio, musicaAtual: musica });
 
     audio.addEventListener('ended', () => avancar(musica, audioAtual, setInfo));
 }

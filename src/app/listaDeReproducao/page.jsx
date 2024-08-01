@@ -1,16 +1,16 @@
 'use client';
-import {useEffect, useState} from 'react';
+
+import { useEffect, useState } from 'react';
 import {
     faArrowDownAZ,
     faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Carousel from '@/components/carousel';
+import { Carousel } from '@/components/carousel';
 import Lista from '@/components/lista';
-import Modal from '@/components/modal';
-import {useEstadosMusica} from '@/context/estadoMusicaContext';
-import {useList} from '@/context/listaContext';
+import { Modal } from '@/components/modal';
+import { useList } from '@/context/listaContext';
 
 const styleTitle = {
     alignItems: 'center',
@@ -20,7 +20,7 @@ const styleTitle = {
 };
 
 const ContentCarousel1 = () => {
-    const {lista} = useList();
+    const { lista } = useList();
 
     const [navComponent, setNavComponent] = useState(null);
     const [h2Component, setH2Component] = useState(null);
@@ -70,26 +70,14 @@ const ContentCarousel2 = () => {
     return (
         <>
             <div style={styleTitle}>
-                <h2>Lista de Reprodução</h2>
-                <FontAwesomeIcon icon={faMagnifyingGlass} size="xs" />
+                <h2>Pesquisa</h2>
+                <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" />
             </div>
         </>
     );
 };
 
 export default function Home() {
-    const {info} = useEstadosMusica();
-
-    useEffect(() => {
-        if (info.audioAtual) {
-            if (info.estado === 'pausado') {
-                info.audioAtual.pause();
-            } else {
-                info.audioAtual.play();
-            }
-        }
-    }, [info.estado, info.audioAtual]);
-
     useEffect(() => {
         const openModalElement = document.querySelector('#openModal');
         if (openModalElement) {

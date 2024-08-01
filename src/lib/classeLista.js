@@ -97,4 +97,4 @@ class Lista {
     }
 }
 
-export {Lista};
+export { Lista };

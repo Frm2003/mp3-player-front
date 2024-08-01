@@ -1,9 +1,9 @@
-import {useLayoutEffect, useRef} from 'react';
-import {faEllipsisH, faFileAudio} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { useLayoutEffect, useRef } from 'react';
+import { faEllipsisH, faFileAudio } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {useEstadosMusica} from '@/context/estadoMusicaContext';
-import {tocar} from '@/lib/funcoesDeAudio.';
+import { useEstadosMusica } from '@/context/estadoMusicaContext';
+import { tocar } from '@/lib/funcoesDeAudio.';
 import listaStyle from '@/styles/lista.module.css';
 
 const calcHeight = (height, soma) => {
@@ -13,8 +13,8 @@ const calcHeight = (height, soma) => {
     return `${window.innerHeight - (soma + 20)}px`;
 };
 
-export default function Lista({list, height}) {
-    const {info, setInfo} = useEstadosMusica();
+export default function Lista({ list, height }) {
+    const { info, setInfo } = useEstadosMusica();
     const listRef = useRef(null);
 
     useLayoutEffect(() => {

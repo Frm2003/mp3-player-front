@@ -1,9 +1,9 @@
-import {Inter} from 'next/font/google';
-import {config} from '@fortawesome/fontawesome-svg-core';
+import { Inter } from 'next/font/google';
+import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import {SpeedInsights} from '@vercel/speed-insights/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
-const inter = Inter({subsets: ['latin']});
+const inter = Inter({ subsets: ['latin'] });
 
 config.autoAddCss = false;
 
@@ -19,7 +19,7 @@ const style = {
     margin: '0',
 };
 
-export default function RootLayout({children}) {
+export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body style={style} className={inter.className}>

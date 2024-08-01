@@ -1,9 +1,11 @@
 class Musica {
+    //BASICOS
     nome;
     album;
     artista;
     caminho;
     tipo;
+    //EXPERIMENTAL;
     playlist;
     anterior;
     proximo;
