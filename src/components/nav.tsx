@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import {
     faGear,
@@ -8,8 +8,8 @@ import {
     faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import menuStyle from '@/styles/menu.module.css';
+
 import { ItemCarousel } from './carousel';
 
 export default async function Nav() {

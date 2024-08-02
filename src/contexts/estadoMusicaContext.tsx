@@ -7,7 +7,7 @@ interface iControleMusica {
     estado: 'pausado' | 'tocando';
     audioAtual: HTMLAudioElement | undefined;
     musicaAtual: Musica | undefined;
-    duracao: number | undefined;
+    duracao: string | undefined;
 }
 
 interface EstadosContextType {
@@ -24,7 +24,7 @@ const controleMusicaInicial: iControleMusica = {
 
 const EstadosContext = createContext<EstadosContextType>({
     info: controleMusicaInicial,
-    setInfo: () => { },
+    setInfo: () => {},
 });
 
 export const EstadosMusicaProvider: React.FC<{ children: ReactNode }> = ({

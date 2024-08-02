@@ -3,9 +3,9 @@
 import { useLayoutEffect, useEffect, useRef, useState, RefObject } from 'react';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { useEstadosMusica } from '@/contexts/estadoMusicaContext';
 import displayStyle from '@/styles/display.module.css';
+
 import { ModalBottom } from './modal';
 
 export default function DisplayAudio() {
@@ -28,9 +28,8 @@ export default function DisplayAudio() {
 
     useLayoutEffect(() => {
         if (displayRef.current) {
-            let nav: HTMLElement | null = document.querySelector('nav');
-            nav != null &&
-                (displayRef.current.style.bottom = `${nav.clientHeight}px`);
+            const nav: HTMLElement | null = document.querySelector('nav');
+            if (nav) displayRef.current.style.bottom = `${nav.clientHeight}px`;
         }
     }, []);
 

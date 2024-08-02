@@ -2,7 +2,6 @@
 
 import React, { Fragment, ReactNode, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import carouselStyle from '@/styles/carousel.module.css';
 import { IconDefinition } from '@fortawesome/free-brands-svg-icons';
 

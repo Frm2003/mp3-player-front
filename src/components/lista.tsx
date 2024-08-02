@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, RefObject } from 'react';
 import { faEllipsisH, faFileAudio } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { useEstadosMusica } from '@/contexts/estadoMusicaContext';
 import { tocar } from '@/lib/funcoesDeAudio';
 import listaStyle from '@/styles/lista.module.css';

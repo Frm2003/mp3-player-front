@@ -6,7 +6,6 @@ import {
     faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { Carousel } from '@/components/carousel';
 import Lista from '@/components/lista';
 import { Modal } from '@/components/modal';
@@ -23,8 +22,12 @@ const ContentCarousel1 = (): ReactNode => {
     const { lista } = useList();
 
     const [navComponent, setNavComponent] = useState<HTMLElement | null>(null);
-    const [h2Component, setH2Component] = useState<HTMLHeadingElement | null>(null);
-    const [displayComponent, setDisplayComponent] = useState<Element | null>(null);
+    const [h2Component, setH2Component] = useState<HTMLHeadingElement | null>(
+        null
+    );
+    const [displayComponent, setDisplayComponent] = useState<Element | null>(
+        null
+    );
 
     useEffect(() => {
         setNavComponent(document.querySelector('nav'));
@@ -78,7 +81,7 @@ const ContentCarousel2 = (): ReactNode => {
     );
 };
 
-export default function Home() {
+export default function Home(): ReactNode {
     useEffect(() => {
         const openModalElement = document.querySelector('#openModal');
         if (openModalElement) {
