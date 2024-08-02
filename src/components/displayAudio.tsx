@@ -1,15 +1,15 @@
 'use client';
 
-import { useLayoutEffect, useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useEffect, useRef, useState, RefObject } from 'react';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useEstadosMusica } from '@/context/estadoMusicaContext';
+import { useEstadosMusica } from '@/contexts/estadoMusicaContext';
 import displayStyle from '@/styles/display.module.css';
 import { ModalBottom } from './modal';
 
 export default function DisplayAudio() {
-    const displayRef = useRef();
+    const displayRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
     const { info, setInfo } = useEstadosMusica();
 
     const [show, setShow] = useState(false);
@@ -27,22 +27,28 @@ export default function DisplayAudio() {
     }, [info.estado, info.audioAtual]);
 
     useLayoutEffect(() => {
-        displayRef.current.style.bottom = `${document.querySelector('nav').clientHeight}px`;
+        if (displayRef.current) {
+            let nav: HTMLElement | null = document.querySelector('nav');
+            nav != null &&
+                (displayRef.current.style.bottom = `${nav.clientHeight}px`);
+        }
     }, []);
 
-    const pausar = () => {
+    const pausar = (): void => {
         setInfo({
             estado: 'pausado',
             audioAtual: info.audioAtual,
             musicaAtual: info.musicaAtual,
+            duracao: info.duracao,
         });
     };
 
-    const continuar = () => {
+    const continuar = (): void => {
         setInfo({
             estado: 'tocando',
             audioAtual: info.audioAtual,
             musicaAtual: info.musicaAtual,
+            duracao: info.duracao,
         });
     };
 

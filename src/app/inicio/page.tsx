@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import {
     faArrowDownAZ,
     faMagnifyingGlass,
@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Carousel } from '@/components/carousel';
 import Lista from '@/components/lista';
 import { Modal } from '@/components/modal';
-import { useList } from '@/context/listaContext';
+import { useList } from '@/contexts/listaContext';
 
 const styleTitle = {
     alignItems: 'center',
@@ -19,12 +19,12 @@ const styleTitle = {
     padding: '0.5em',
 };
 
-const ContentCarousel1 = () => {
+const ContentCarousel1 = (): ReactNode => {
     const { lista } = useList();
 
-    const [navComponent, setNavComponent] = useState(null);
-    const [h2Component, setH2Component] = useState(null);
-    const [displayComponent, setDisplayComponent] = useState(null);
+    const [navComponent, setNavComponent] = useState<HTMLElement | null>(null);
+    const [h2Component, setH2Component] = useState<HTMLHeadingElement | null>(null);
+    const [displayComponent, setDisplayComponent] = useState<Element | null>(null);
 
     useEffect(() => {
         setNavComponent(document.querySelector('nav'));
@@ -32,7 +32,8 @@ const ContentCarousel1 = () => {
         setDisplayComponent(document.querySelector('#displayAudio'));
     }, []);
 
-    const [ordenou, setOrdenou] = useState(false);
+    const [ordenou, setOrdenou] = useState<boolean>(false);
+
     const ordenar = () => {
         lista.mergeSort();
         setOrdenou(false);
@@ -52,7 +53,7 @@ const ContentCarousel1 = () => {
                     onClick={ordenar}
                 />
             </div>
-            {navComponent && (
+            {navComponent && h2Component && displayComponent && (
                 <Lista
                     list={lista.selectAll()}
                     height={[
@@ -66,7 +67,7 @@ const ContentCarousel1 = () => {
     );
 };
 
-const ContentCarousel2 = () => {
+const ContentCarousel2 = (): ReactNode => {
     return (
         <>
             <div style={styleTitle}>
@@ -87,9 +88,9 @@ export default function Home() {
         }
     }, []);
 
-    const [show, setShow] = useState(false);
-    const abrirModal = () => setShow(true);
-    const fecharModal = () => setShow(false);
+    const [show, setShow] = useState<boolean>(false);
+    const abrirModal = (): void => setShow(true);
+    const fecharModal = (): void => setShow(false);
 
     return (
         <>

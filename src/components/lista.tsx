@@ -1,28 +1,43 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, RefObject } from 'react';
 import { faEllipsisH, faFileAudio } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useEstadosMusica } from '@/context/estadoMusicaContext';
-import { tocar } from '@/lib/funcoesDeAudio.';
+import { useEstadosMusica } from '@/contexts/estadoMusicaContext';
+import { tocar } from '@/lib/funcoesDeAudio';
 import listaStyle from '@/styles/lista.module.css';
+import Musica from '@/lib/classeMusica';
 
-const calcHeight = (height, soma) => {
+const calcHeight = (height: number[], soma: number): string => {
     height.forEach((e) => {
         soma += e;
     });
     return `${window.innerHeight - (soma + 20)}px`;
 };
 
-export default function Lista({ list, height }) {
+export default function Lista({
+    list,
+    height,
+}: {
+    list: Musica[];
+    height: Array<number>;
+}) {
+    const listRef: RefObject<HTMLUListElement> = useRef<HTMLUListElement>(null);
     const { info, setInfo } = useEstadosMusica();
-    const listRef = useRef(null);
 
     useLayoutEffect(() => {
-        listRef.current.style.height = calcHeight(height, 0);
-        window.addEventListener(
-            'resize',
-            () => (listRef.current.style.height = calcHeight(height, 0))
-        );
+        const updateHeight = () => {
+            if (listRef.current) {
+                listRef.current.style.height = calcHeight(height, 0);
+            }
+        };
+
+        updateHeight();
+
+        window.addEventListener('resize', updateHeight);
+
+        return () => {
+            window.removeEventListener('resize', updateHeight);
+        };
     }, [height]);
 
     return (
@@ -30,9 +45,7 @@ export default function Lista({ list, height }) {
             {list.map((musica, index) => (
                 <li key={index}>
                     <div>
-                        <FontAwesomeIcon
-                            icon={musica.tipo == 'arquivo' ? faFileAudio : null}
-                        />
+                        <FontAwesomeIcon icon={faFileAudio} />
                     </div>
                     <div
                         onClick={() => tocar(musica, info.audioAtual, setInfo)}

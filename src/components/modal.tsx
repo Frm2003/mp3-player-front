@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, RefObject } from 'react';
 import {
     faClose,
     faBackward,
@@ -8,45 +8,54 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { useList } from '@/context/listaContext';
+import { useList } from '@/contexts/listaContext';
 import Musica from '@/lib/classeMusica';
 import modalStyle from '@/styles/modal.module.css';
 
-export function Modal({ show, funcFechar }) {
+interface iProps {
+    show: boolean;
+    funcFechar: () => void;
+}
+
+export function Modal({ show, funcFechar }: iProps) {
+    const modalRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
     const { lista } = useList();
-    const modalRef = useRef(null);
 
     const fecharModal = () => {
-        let animation = modalRef.current.animate(
-            [{ marginTop: '0%' }, { marginTop: '-300%' }],
-            {
-                duration: 250,
-                fill: 'forwards',
-            }
-        );
-
-        animation.onfinish = () => funcFechar();
-    };
-
-    const fileSelect = (event) => {
-        const files = event.target.files;
-
-        for (let i = 0; i < files.length; i++) {
-            const fileName = files[i].name;
-            const info = fileName.split('-').map((part) => part.trim());
-
-            const musica = new Musica(
-                info.length > 2 ? info[2].trim() : info[1].trim(),
-                info.length > 2 ? info[1] : null,
-                info[0],
-                URL.createObjectURL(files[i]),
-                'arquivo'
+        if (modalRef.current) {
+            const animation = modalRef.current.animate(
+                [{ marginTop: '0%' }, { marginTop: '-300%' }],
+                {
+                    duration: 250,
+                    fill: 'forwards',
+                }
             );
 
-            lista.add(musica);
+            animation.onfinish = () => funcFechar();
         }
+    };
 
-        fecharModal();
+    const fileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files: FileList | null = event.target.files;
+
+        if (files) {
+            for (let i = 0; i < files.length; i++) {
+                const fileName = files[i].name;
+                const info = fileName.split('-').map((part) => part.trim());
+
+                const musica = new Musica(
+                    info.length > 2 ? info[2].trim() : info[1].trim(),
+                    info.length > 2 ? info[1] : undefined,
+                    info[0],
+                    URL.createObjectURL(files[i]),
+                    'arquivo'
+                );
+
+                lista.add(musica);
+            }
+
+            fecharModal();
+        }
     };
 
     const html = (
@@ -76,18 +85,20 @@ export function Modal({ show, funcFechar }) {
     return show ? html : null;
 }
 
-export function ModalBottom({ show, funcFechar }) {
-    const modalRef = useRef(null);
+export function ModalBottom({ show, funcFechar }: iProps) {
+    const modalRef = useRef<HTMLDivElement>(null);
     const fecharModal = () => {
-        let animation = modalRef.current.animate(
-            [{ bottom: '0%' }, { bottom: '-500px' }],
-            {
-                duration: 250,
-                fill: 'forwards',
-            }
-        );
+        if (modalRef.current) {
+            const animation = modalRef.current.animate(
+                [{ bottom: '0%' }, { bottom: '-500px' }],
+                {
+                    duration: 250,
+                    fill: 'forwards',
+                }
+            );
 
-        animation.onfinish = () => funcFechar();
+            animation.onfinish = () => funcFechar();
+        }
     };
 
     const html = (

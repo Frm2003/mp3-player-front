@@ -1,3 +1,5 @@
+'use server'
+
 import {
     faGear,
     faList,
@@ -10,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import menuStyle from '@/styles/menu.module.css';
 import { ItemCarousel } from './carousel';
 
-export default function Nav() {
+export default async function Nav() {
     return (
         <nav className={menuStyle.menu}>
             <div>
