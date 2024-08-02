@@ -9,10 +9,10 @@ export function Carousel({ contents }: { contents: ReactNode[] }) {
     useEffect(() => slide(), []);
 
     const slide = () => {
-        let inputs: NodeListOf<Element> = document.querySelectorAll(
+        const inputs: NodeListOf<Element> = document.querySelectorAll(
             'input[type="radio"]'
         );
-        let initialContent = document.querySelector('#s1') as HTMLElement;
+        const initialContent = document.querySelector('#s1') as HTMLElement;
 
         inputs.forEach((input, index): void => {
             (input as HTMLInputElement).addEventListener('change', () => {

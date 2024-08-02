@@ -7,7 +7,6 @@ import {
     faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { useList } from '@/contexts/listaContext';
 import Musica from '@/lib/classeMusica';
 import modalStyle from '@/styles/modal.module.css';
