@@ -1,15 +1,8 @@
 import type Musica from './classeMusica';
 
-interface estado {
-    estado: string;
-    audioAtual: HTMLAudioElement;
-    musicaAtual: Musica;
-    duracao: string;
-}
-
 export function tocar(
     musica: Musica,
-    audioAtual: HTMLAudioElement,
+    audioAtual: HTMLAudioElement | undefined,
     setInfo: React.Dispatch<React.SetStateAction<any>>
 ): void {
     if (audioAtual) audioAtual.pause();
@@ -29,7 +22,7 @@ export function tocar(
 
 export function avancar(
     musica: Musica,
-    audioAtual: HTMLAudioElement,
+    audioAtual: HTMLAudioElement | undefined,
     setInfo: React.Dispatch<React.SetStateAction<any>>
 ): void {
     if (musica.proximo == undefined) {
@@ -44,7 +37,7 @@ export function avancar(
 
 export function voltar(
     musica: Musica,
-    audioAtual: HTMLAudioElement,
+    audioAtual: HTMLAudioElement | undefined,
     setInfo: React.Dispatch<React.SetStateAction<any>>
 ): void {
     if (musica.anterior == undefined) {
