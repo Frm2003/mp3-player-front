@@ -1,11 +1,5 @@
 import { useRef, RefObject } from 'react';
-import {
-    faClose,
-    faBackward,
-    faForward,
-    faPlay,
-    faChevronDown,
-} from '@fortawesome/free-solid-svg-icons';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useList } from '@/contexts/listaContext';
 import Musica from '@/lib/classeMusica';
@@ -77,55 +71,6 @@ export function Modal({ show, funcFechar }: iProps) {
                     multiple
                     onChange={fileSelect}
                 />
-            </article>
-        </section>
-    );
-
-    return show ? html : null;
-}
-
-export function ModalBottom({ show, funcFechar }: iProps) {
-    const modalRef = useRef<HTMLDivElement>(null);
-    const fecharModal = () => {
-        if (modalRef.current) {
-            const animation = modalRef.current.animate(
-                [{ bottom: '0%' }, { bottom: '-500px' }],
-                {
-                    duration: 250,
-                    fill: 'forwards',
-                }
-            );
-
-            animation.onfinish = () => funcFechar();
-        }
-    };
-
-    const html = (
-        <section className={modalStyle.layout2}>
-            <article ref={modalRef}>
-                <FontAwesomeIcon
-                    className={modalStyle.icone}
-                    icon={faChevronDown}
-                    onClick={() => fecharModal()}
-                />
-                <div className={modalStyle.botoes}>
-                    <span>
-                        <FontAwesomeIcon icon={faBackward} />
-                    </span>
-                    <span>
-                        <FontAwesomeIcon icon={faPlay} />
-                    </span>
-                    <span>
-                        <FontAwesomeIcon icon={faForward} />
-                    </span>
-                </div>
-                <div className={modalStyle.tempo}>
-                    <input type={'range'} />
-                    <div>
-                        <p>0:00</p>
-                        <p>0:00</p>
-                    </div>
-                </div>
             </article>
         </section>
     );

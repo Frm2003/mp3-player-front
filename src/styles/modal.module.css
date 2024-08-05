@@ -88,7 +88,7 @@
 }
 
 .layout2 article {
-    animation-duration: 0.25s;
+    animation-duration: 0.15s;
     animation-name: slideUpWithBottom;
     animation-fill-mode: forwards;
     text-align: center;

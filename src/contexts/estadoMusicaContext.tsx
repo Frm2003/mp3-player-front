@@ -7,7 +7,7 @@ interface iControleMusica {
     estado: 'pausado' | 'tocando';
     audioAtual: HTMLAudioElement | undefined;
     musicaAtual: Musica | undefined;
-    duracao: string | undefined;
+    duracao: number | undefined;
 }
 
 interface EstadosContextType {

@@ -4,15 +4,16 @@ import { useLayoutEffect, useEffect, useRef, useState, RefObject } from 'react';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEstadosMusica } from '@/contexts/estadoMusicaContext';
+import { continuar, pausar } from '@/lib/funcoesDeAudio';
 import displayStyle from '@/styles/display.module.css';
 
-import { ModalBottom } from './modal';
+import { ControleDeAudio } from './controleDeAudio';
 
 export default function DisplayAudio() {
     const displayRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
     const { info, setInfo } = useEstadosMusica();
 
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState<boolean>(false);
     const abrirModal = () => setShow(true);
     const fecharModal = () => setShow(false);
 
@@ -33,35 +34,19 @@ export default function DisplayAudio() {
         }
     }, []);
 
-    const pausar = (): void => {
-        setInfo({
-            estado: 'pausado',
-            audioAtual: info.audioAtual,
-            musicaAtual: info.musicaAtual,
-            duracao: info.duracao,
-        });
-    };
-
-    const continuar = (): void => {
-        setInfo({
-            estado: 'tocando',
-            audioAtual: info.audioAtual,
-            musicaAtual: info.musicaAtual,
-            duracao: info.duracao,
-        });
-    };
-
     return (
         <>
             <section
                 className={displayStyle.body}
                 id="displayAudio"
-                onClick={() => abrirModal()}
                 ref={displayRef}
             >
                 <article>
                     <div className={displayStyle.aling}>
-                        <div className={displayStyle.text}>
+                        <div
+                            className={displayStyle.text}
+                            onClick={() => abrirModal()}
+                        >
                             <h3>
                                 {info.musicaAtual
                                     ? info.musicaAtual.nome.replace('.mp3', '')
@@ -80,8 +65,8 @@ export default function DisplayAudio() {
                                 }
                                 onClick={() =>
                                     info.estado == 'pausado'
-                                        ? continuar()
-                                        : pausar()
+                                        ? continuar(info, setInfo)
+                                        : pausar(info, setInfo)
                                 }
                                 size="2x"
                             />
@@ -90,7 +75,7 @@ export default function DisplayAudio() {
                     <progress value={0} max={100} />
                 </article>
             </section>
-            <ModalBottom show={show} funcFechar={fecharModal} />
+            <ControleDeAudio show={show} funcFechar={fecharModal} />
         </>
     );
 }

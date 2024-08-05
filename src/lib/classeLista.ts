@@ -63,18 +63,15 @@ class Lista {
         };
 
         const encontrarMeio = (inicio: Musica): Musica => {
-            let rapido: Musica | undefined = inicio;
             let lento: Musica = inicio;
-
-            while (lento !== undefined && lento.proximo !== undefined) {
-                lento = lento.proximo;
-            }
+            let rapido: Musica | undefined = inicio;
 
             while (
                 rapido !== undefined &&
                 rapido.proximo !== undefined &&
                 rapido.proximo.proximo !== undefined
             ) {
+                lento = lento.proximo!;
                 rapido = rapido.proximo.proximo;
             }
 
