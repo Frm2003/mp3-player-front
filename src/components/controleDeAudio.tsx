@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import {
     faBackward,
     faChevronDown,
@@ -18,6 +18,7 @@ interface iProps {
 
 export function ControleDeAudio({ show, funcFechar }: iProps) {
     const modalRef = useRef<HTMLDivElement>(null);
+    const exibeTempoRef = useRef<HTMLParagraphElement>(null);
     const { info, setInfo } = useEstadosMusica();
 
     const fecharModal = (): void => {
@@ -34,14 +35,50 @@ export function ControleDeAudio({ show, funcFechar }: iProps) {
         }
     };
 
+    useEffect(() => {
+        if (info.audioAtual) {
+            const handleTimeUpdate = () => {
+                const tempoAtual = info.audioAtual?.currentTime ?? -1;
+                if (tempoAtual > -1) {
+                    const minutos = Math.floor(tempoAtual / 60);
+                    const segundos = Math.floor(tempoAtual % 60);
+
+                    const inputs: NodeListOf<HTMLInputElement> =
+                        document.querySelectorAll('#progressRange');
+                    inputs.forEach((input: HTMLInputElement) => {
+                        input.value = `${tempoAtual}`;
+                    });
+
+                    if (exibeTempoRef.current) {
+                        exibeTempoRef.current.textContent = `${minutos}:${segundos.toString().padStart(2, '0')}`;
+                    }
+                }
+            };
+
+            info.audioAtual.addEventListener('timeupdate', handleTimeUpdate);
+
+            // Função de limpeza para remover o event listener
+            return () => {
+                if (info.audioAtual) {
+                    info.audioAtual.removeEventListener(
+                        'timeupdate',
+                        handleTimeUpdate
+                    );
+                }
+            };
+        }
+    }, [info.audioAtual]);
+
     const formatTime = (): string | undefined => {
         if (info.duracao != undefined) {
             const minutos: number = Math.floor(info.duracao / 60);
             const segundos: number = Math.floor(info.duracao % 60);
-            return `${minutos}:${segundos}`;
+            return `${minutos}:${segundos.toString().padStart(2, '0')}`;
         }
         return undefined;
     };
+
+    const onChange = () => console.log('teste');
 
     const html = (
         <section className={modalStyle.layout2}>
@@ -88,9 +125,20 @@ export function ControleDeAudio({ show, funcFechar }: iProps) {
                     </span>
                 </div>
                 <div className={modalStyle.tempo}>
-                    <input type={'range'} />
+                    <input
+                        type="range"
+                        id="progressRange"
+                        min="0"
+                        max={info.duracao}
+                        step="0.01"
+                        value={
+                            info.audioAtual ? info.audioAtual.currentTime : 0
+                        }
+                        style={{ maxWidth: '100%' }}
+                        onChange={() => onChange()}
+                    />
                     <div>
-                        <p>0:00</p>
+                        <p ref={exibeTempoRef}>0:00</p>
                         <p>
                             {info.duracao != undefined ? formatTime() : '0:00'}
                         </p>
