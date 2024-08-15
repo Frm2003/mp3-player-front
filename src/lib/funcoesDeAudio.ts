@@ -22,11 +22,13 @@ export function tocar(
         audio.addEventListener('ended', () =>
             avancar(musica, audioAtual, setInfo)
         );
-        setInfo({
-            estado: 'tocando',
-            audioAtual: audio,
-            musicaAtual: musica,
-            duracao: 100.213213,
+        audio.addEventListener('loadedmetadata', () => {
+            setInfo({
+                estado: 'tocando',
+                audioAtual: audio,
+                musicaAtual: musica,
+                duracao: audio?.duration,
+            });
         });
     }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 import {
     faBackward,
     faChevronDown,
@@ -7,18 +7,21 @@ import {
     faPause,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import modalStyle from '@/styles/modal.module.css';
 import { useEstadosMusica } from '@/contexts/estadoMusicaContext';
 import { avancar, continuar, pausar, voltar } from '@/lib/funcoesDeAudio';
+import controleStyle from '@/styles/controleAudio.module.css';
 
-interface iProps {
+export function ControleDeAudio({
+    show,
+    funcFechar,
+}: {
     show: boolean;
     funcFechar: () => void;
-}
+}) {
+    const modalRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+    const exibeTempoRef: RefObject<HTMLParagraphElement> =
+        useRef<HTMLParagraphElement>(null);
 
-export function ControleDeAudio({ show, funcFechar }: iProps) {
-    const modalRef = useRef<HTMLDivElement>(null);
-    const exibeTempoRef = useRef<HTMLParagraphElement>(null);
     const { info, setInfo } = useEstadosMusica();
 
     const fecharModal = (): void => {
@@ -34,14 +37,15 @@ export function ControleDeAudio({ show, funcFechar }: iProps) {
             animation.onfinish = () => funcFechar();
         }
     };
-
+    // DURAÇÃO ATUAL
     useEffect(() => {
-        if (info.audioAtual) {
-            const handleTimeUpdate = () => {
-                const tempoAtual = info.audioAtual?.currentTime ?? -1;
-                if (tempoAtual > -1) {
-                    const minutos = Math.floor(tempoAtual / 60);
-                    const segundos = Math.floor(tempoAtual % 60);
+        if (info.audioAtual != undefined) {
+            info.audioAtual.addEventListener('timeupdate', () => {
+                const tempoAtual: number | undefined =
+                    info.audioAtual?.currentTime ?? undefined;
+                if (tempoAtual) {
+                    const minutos: number = Math.floor(tempoAtual / 60);
+                    const segundos: number = Math.floor(tempoAtual % 60);
 
                     const inputs: NodeListOf<HTMLInputElement> =
                         document.querySelectorAll('#progressRange');
@@ -53,22 +57,11 @@ export function ControleDeAudio({ show, funcFechar }: iProps) {
                         exibeTempoRef.current.textContent = `${minutos}:${segundos.toString().padStart(2, '0')}`;
                     }
                 }
-            };
-
-            info.audioAtual.addEventListener('timeupdate', handleTimeUpdate);
-
-            // Função de limpeza para remover o event listener
-            return () => {
-                if (info.audioAtual) {
-                    info.audioAtual.removeEventListener(
-                        'timeupdate',
-                        handleTimeUpdate
-                    );
-                }
-            };
+            });
         }
     }, [info.audioAtual]);
 
+    // DURAÇÃO TOTAL
     const formatTime = (): string | undefined => {
         if (info.duracao != undefined) {
             const minutos: number = Math.floor(info.duracao / 60);
@@ -78,22 +71,27 @@ export function ControleDeAudio({ show, funcFechar }: iProps) {
         return undefined;
     };
 
-    const onChange = () => console.log('teste');
+    const onChange = (input: HTMLInputElement) => {
+        if (info.duracao) {
+            const newTime = (parseFloat(input.value) / 100) * info.duracao;
+            input.value = `${newTime}`;
+        }
+    };
 
     const html = (
-        <section className={modalStyle.layout2}>
+        <section className={controleStyle.layout}>
             <article ref={modalRef}>
                 <FontAwesomeIcon
-                    className={modalStyle.icone}
+                    className={controleStyle.icone}
                     icon={faChevronDown}
                     onClick={() => fecharModal()}
                 />
-                <div className={modalStyle.botoes}>
+                <div className={controleStyle.botoes}>
                     <span>
                         <FontAwesomeIcon
                             icon={faBackward}
                             onClick={() =>
-                                avancar(
+                                voltar(
                                     info.musicaAtual,
                                     info.audioAtual,
                                     setInfo
@@ -115,7 +113,7 @@ export function ControleDeAudio({ show, funcFechar }: iProps) {
                         <FontAwesomeIcon
                             icon={faForward}
                             onClick={() =>
-                                voltar(
+                                avancar(
                                     info.musicaAtual,
                                     info.audioAtual,
                                     setInfo
@@ -124,24 +122,20 @@ export function ControleDeAudio({ show, funcFechar }: iProps) {
                         />
                     </span>
                 </div>
-                <div className={modalStyle.tempo}>
+                <div className={controleStyle.tempo}>
                     <input
                         type="range"
                         id="progressRange"
                         min="0"
                         max={info.duracao}
                         step="0.01"
-                        value={
-                            info.audioAtual ? info.audioAtual.currentTime : 0
-                        }
+                        value={0}
                         style={{ maxWidth: '100%' }}
-                        onChange={() => onChange()}
+                        onChange={(e) => onChange(e.target)}
                     />
                     <div>
                         <p ref={exibeTempoRef}>0:00</p>
-                        <p>
-                            {info.duracao != undefined ? formatTime() : '0:00'}
-                        </p>
+                        <p>{info.duracao ? formatTime() : '0:00'}</p>
                     </div>
                 </div>
             </article>
