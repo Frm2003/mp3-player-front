@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import menuStyle from '@/styles/menu.module.css';
 
-import { ItemCarousel } from './carousel';
+import { ItemCarousel } from './generics/carousel';
 
 export default async function Nav() {
     return (

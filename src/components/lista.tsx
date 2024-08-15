@@ -18,7 +18,7 @@ export default function Lista({
     height,
 }: {
     list: Musica[];
-    height: Array<number>;
+    height: number[];
 }) {
     const listRef: RefObject<HTMLUListElement> = useRef<HTMLUListElement>(null);
     const { info, setInfo } = useEstadosMusica();

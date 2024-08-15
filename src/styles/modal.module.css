@@ -23,27 +23,17 @@
     z-index: 3;
 }
 
-.layout article {
-    background: rgba(41, 37, 37, 1);
-    border-radius: 5px;
-    margin: auto;
-    padding: 0.75em;
-    overflow: hidden;
-    text-align: center;
-    width: 70%;
+.layout h2 {
+    margin: 0.5em 0;
 }
 
-.layout article h2 {
-    padding: 0.25em 0 0.5em 0;
+.layout .body {
+    background: rgba(33, 32, 32, 1);
+    border-radius: 10px;
+    padding: 1em;
 }
 
-.btn {
-    border: 3px solid rgba(255, 255, 255, 0.75);
-    border-radius: 5px;
-    padding: 0.5em 1.5em;
-}
-
-.layout article input[type='file'] {
+.layout input[type='file'] {
     display: none;
 }
 
@@ -64,104 +54,5 @@
 
     to {
         margin-top: -300%;
-    }
-}
-
-/*MODAL 2*/
-.layout2 * {
-    vertical-align: baseline;
-    box-sizing: border-box;
-    border-spacing: 0;
-    margin: 0;
-    padding: 0;
-    outline: none;
-    text-decoration: none;
-}
-
-.layout2 {
-    height: 100%;
-    position: fixed;
-    overflow-y: hidden;
-    top: 0;
-    width: 100%;
-    z-index: 5;
-}
-
-.layout2 article {
-    animation-duration: 0.15s;
-    animation-name: slideUpWithBottom;
-    animation-fill-mode: forwards;
-    text-align: center;
-    background: rgba(33, 32, 32, 1);
-    bottom: -500px;
-    position: fixed;
-    width: 100%;
-}
-
-.layout2 article .icone {
-    font-size: 35px;
-    padding: 0.25em;
-}
-
-.layout2 article .botoes {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    padding: 1em 0;
-    overflow: hidden;
-    width: 70%;
-}
-
-.layout2 article .botoes span {
-    float: left;
-    text-align: center;
-}
-
-.layout2 article .botoes span:nth-child(odd) {
-    width: 25%;
-}
-
-.layout2 article .botoes span:nth-child(even) {
-    width: 50%;
-}
-
-.layout2 article .botoes span:nth-child(odd) svg {
-    font-size: 20px;
-}
-
-.layout2 article .botoes span:nth-child(even) svg {
-    background: white;
-    border-radius: 50%;
-    color: black;
-    height: 40px;
-    padding: 0.75em;
-    width: 40px;
-}
-
-.layout2 article .tempo {
-    margin: auto;
-    width: 80%;
-}
-
-.layout2 article .tempo input {
-    margin: 0.5em 0;
-    width: 100%;
-}
-
-.layout2 article .tempo div {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5em 0;
-}
-
-@keyframes slideUpWithBottom {
-    from {
-        bottom: -500px;
-    }
-
-    to {
-        bottom: 0;
     }
 }
