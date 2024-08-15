@@ -6,16 +6,23 @@ import {
     faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Carousel } from '@/components/carousel';
+import { Carousel } from '@/components/generics/carousel';
 import Lista from '@/components/lista';
-import { Modal } from '@/components/modal';
+import { Modal } from '@/components/generics/modal';
 import { useList } from '@/contexts/listaContext';
+import Musica from '@/lib/classeMusica';
 
-const styleTitle = {
+const styleTitle: object = {
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'space-between',
     padding: '0.5em',
+};
+
+const styleBtn: object = {
+    border: '2px solid',
+    borderRadius: '10px',
+    padding: '0.5em 1.5em',
 };
 
 const ContentCarousel1 = (): ReactNode => {
@@ -81,6 +88,42 @@ const ContentCarousel2 = (): ReactNode => {
     );
 };
 
+const ContentModal = (fecharModal: () => void): ReactNode => {
+    const { lista } = useList();
+
+    const fileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files: FileList | null = event.target.files;
+        if (files) {
+            for (let i = 0; i < files.length; i++) {
+                const fileName = files[i].name;
+                const info = fileName.split('-').map((part) => part.trim());
+
+                const musica = new Musica(
+                    info.length > 2 ? info[2].trim() : info[1].trim(),
+                    info.length > 2 ? info[1] : undefined,
+                    info[0],
+                    URL.createObjectURL(files[i]),
+                    'arquivo'
+                );
+
+                lista.add(musica);
+            }
+
+            fecharModal();
+        }
+    };
+
+    return (
+        <article>
+            <h2>Upload de arquivos</h2>
+            <div style={styleBtn}>
+                <label htmlFor="filesInput">Selecione os Arquivos</label>
+            </div>
+            <input id="filesInput" type="file" multiple onChange={fileSelect} />
+        </article>
+    );
+};
+
 export default function Home(): ReactNode {
     useEffect(() => {
         const openModalElement = document.querySelector('#openModal');
@@ -98,7 +141,11 @@ export default function Home(): ReactNode {
     return (
         <>
             <Carousel contents={[ContentCarousel1(), ContentCarousel2()]} />
-            <Modal show={show} funcFechar={fecharModal} />
+            <Modal
+                show={show}
+                content={ContentModal(fecharModal)}
+                funcFechar={fecharModal}
+            />
         </>
     );
 }
