@@ -8,29 +8,49 @@
     text-decoration: none;
 }
 
-.layout {
-    height: 100%;
-    position: fixed;
-    overflow-y: hidden;
-    top: 0;
-    width: 100%;
-    z-index: 5;
-}
-
 .layout article {
-    animation-duration: 0.15s;
-    animation-name: slideUpWithBottom;
-    animation-fill-mode: forwards;
-    text-align: center;
     background: rgba(33, 32, 32, 1);
-    bottom: -500px;
-    position: fixed;
+    bottom: -300px;
+    position: absolute;
     width: 100%;
+    z-index: 4;
 }
 
 .layout article .icone {
     font-size: 35px;
-    padding: 0.25em;
+    width: 100%;
+    text-align: center;
+    padding: 0.25em 0;
+}
+
+.layout article .info {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 80%;
+}
+
+.layout article .info svg {
+    width: 20%;
+    color: rgba(16, 16, 16, 1);
+}
+
+.layout article .info .text {
+    overflow-x: scroll;
+    width: 80%;
+    white-space: nowrap;
+}
+
+.layout article .info .text h3 {
+    color: rgba(255, 255, 255, 1);
+    font-size: 20px;
+}
+
+.body article .info .text p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 17px;
+    padding-top: 0.25em;
 }
 
 .layout article .botoes {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useEffect, useRef, useState, RefObject } from 'react';
+import { useLayoutEffect, useEffect, useRef, RefObject } from 'react';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEstadosMusica } from '@/contexts/estadoMusicaContext';
@@ -13,9 +13,17 @@ export default function DisplayAudio() {
     const displayRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
     const { info, setInfo } = useEstadosMusica();
 
-    const [show, setShow] = useState<boolean>(false);
-    const abrirModal = () => setShow(true);
-    const fecharModal = () => setShow(false);
+    const abrirControle = (): void => {
+        const div: HTMLElement | null =
+            document.querySelector('#controleDeAudio');
+
+        if (div) {
+            div.animate([{ bottom: '-500px' }, { bottom: '0px' }], {
+                duration: 150,
+                fill: 'forwards',
+            });
+        }
+    };
 
     useEffect(() => {
         if (info.audioAtual) {
@@ -45,7 +53,7 @@ export default function DisplayAudio() {
                     <div className={displayStyle.aling}>
                         <div
                             className={displayStyle.text}
-                            onClick={() => abrirModal()}
+                            onClick={() => abrirControle()}
                         >
                             <h3>
                                 {info.musicaAtual
@@ -72,10 +80,10 @@ export default function DisplayAudio() {
                             />
                         </div>
                     </div>
-                    <progress value={0} max={100} />
+                    <progress id="progressRange" max={info.duracao} value={0} />
                 </article>
             </section>
-            <ControleDeAudio show={show} funcFechar={fecharModal} />
+            <ControleDeAudio />
         </>
     );
 }

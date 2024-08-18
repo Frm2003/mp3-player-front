@@ -16,8 +16,9 @@ export const metadata: Metadata = {
 const style: object = {
     background: 'rgb(41,37,37)',
     color: 'rgba(255,255,255,0.5)',
-    padding: '0',
     margin: '0',
+    padding: '0',
+    overflowY: 'hidden',
 };
 
 export default function RootLayout({

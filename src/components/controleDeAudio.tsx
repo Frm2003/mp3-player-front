@@ -1,48 +1,62 @@
 import { RefObject, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBackward,
     faChevronDown,
     faForward,
-    faPlay,
     faPause,
+    faPlay,
+    faRepeat,
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { avancar, continuar, voltar, pausar } from '@/lib/funcoesDeAudio';
 import { useEstadosMusica } from '@/contexts/estadoMusicaContext';
-import { avancar, continuar, pausar, voltar } from '@/lib/funcoesDeAudio';
 import controleStyle from '@/styles/controleAudio.module.css';
 
-export function ControleDeAudio({
-    show,
-    funcFechar,
-}: {
-    show: boolean;
-    funcFechar: () => void;
-}) {
-    const modalRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+export function ControleDeAudio() {
     const exibeTempoRef: RefObject<HTMLParagraphElement> =
         useRef<HTMLParagraphElement>(null);
 
     const { info, setInfo } = useEstadosMusica();
 
-    const fecharModal = (): void => {
-        if (modalRef.current) {
-            const animation = modalRef.current.animate(
-                [{ bottom: '0%' }, { bottom: '-500px' }],
-                {
-                    duration: 150,
-                    fill: 'forwards',
-                }
-            );
+    const fecharControle = (): void => {
+        const div: HTMLElement | null =
+            document.querySelector('#controleDeAudio');
 
-            animation.onfinish = () => funcFechar();
+        if (div) {
+            div.animate([{ bottom: '0' }, { bottom: '-500px' }], {
+                duration: 150,
+                fill: 'forwards',
+            });
+
+            div.style.display = 'block';
         }
     };
-    // DURAÇÃO ATUAL
+
+    // FUNÇÃO: ALTERAR O TEMPO ATUAL DA MUSICA
+    const changeTime = (input: HTMLInputElement) => {
+        if (info.duracao) {
+            const newTime = (parseFloat(input.value) / 100) * info.duracao;
+            input.value = `${newTime}`;
+        }
+    };
+
+    // FUNÇÃO: MOSTRAR A DURAÇÃO TOTAL DA MUSICA
+    const formatTime = (): string | undefined => {
+        if (info.duracao != undefined) {
+            const minutos: number = Math.floor(info.duracao / 60);
+            const segundos: number = Math.floor(info.duracao % 60);
+            return `${minutos}:${segundos.toString().padStart(2, '0')}`;
+        }
+        return undefined;
+    };
+
+    // FUNÇÃO: MOSTRAR A DURAÇÃO ATUAL DA MUSICA
     useEffect(() => {
-        if (info.audioAtual != undefined) {
+        if (info.audioAtual) {
             info.audioAtual.addEventListener('timeupdate', () => {
                 const tempoAtual: number | undefined =
                     info.audioAtual?.currentTime ?? undefined;
+
                 if (tempoAtual) {
                     const minutos: number = Math.floor(tempoAtual / 60);
                     const segundos: number = Math.floor(tempoAtual % 60);
@@ -61,31 +75,29 @@ export function ControleDeAudio({
         }
     }, [info.audioAtual]);
 
-    // DURAÇÃO TOTAL
-    const formatTime = (): string | undefined => {
-        if (info.duracao != undefined) {
-            const minutos: number = Math.floor(info.duracao / 60);
-            const segundos: number = Math.floor(info.duracao % 60);
-            return `${minutos}:${segundos.toString().padStart(2, '0')}`;
-        }
-        return undefined;
-    };
-
-    const onChange = (input: HTMLInputElement) => {
-        if (info.duracao) {
-            const newTime = (parseFloat(input.value) / 100) * info.duracao;
-            input.value = `${newTime}`;
-        }
-    };
-
-    const html = (
+    return (
         <section className={controleStyle.layout}>
-            <article ref={modalRef}>
+            <article id="controleDeAudio">
                 <FontAwesomeIcon
                     className={controleStyle.icone}
                     icon={faChevronDown}
-                    onClick={() => fecharModal()}
+                    onClick={() => fecharControle()}
                 />
+                <div className={controleStyle.info}>
+                    <div className={controleStyle.text}>
+                        <h3>
+                            {info.musicaAtual
+                                ? info.musicaAtual.nome.replace('.mp3', '')
+                                : 'Selecione uma musica'}
+                        </h3>
+                        <p>
+                            {info.musicaAtual
+                                ? info.musicaAtual.artista
+                                : '...'}
+                        </p>
+                    </div>
+                    <FontAwesomeIcon icon={faRepeat} size={'2x'} />
+                </div>
                 <div className={controleStyle.botoes}>
                     <span>
                         <FontAwesomeIcon
@@ -129,9 +141,11 @@ export function ControleDeAudio({
                         min="0"
                         max={info.duracao}
                         step="0.01"
-                        value={0}
+                        value={
+                            info.audioAtual ? info.audioAtual.currentTime : 0
+                        }
                         style={{ maxWidth: '100%' }}
-                        onChange={(e) => onChange(e.target)}
+                        onChange={(e) => changeTime(e.target)}
                     />
                     <div>
                         <p ref={exibeTempoRef}>0:00</p>
@@ -141,6 +155,4 @@ export function ControleDeAudio({
             </article>
         </section>
     );
-
-    return show ? html : null;
 }

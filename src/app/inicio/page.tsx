@@ -125,6 +125,11 @@ const ContentModal = (fecharModal: () => void): ReactNode => {
 };
 
 export default function Home(): ReactNode {
+    const [show, setShow] = useState<boolean>(false);
+    const abrirModal = (): void => setShow(true);
+    const fecharModal = (): void => setShow(false);
+
+    //FUNCÃO: ENCONTRA E ABRIR MODAL
     useEffect(() => {
         const openModalElement = document.querySelector('#openModal');
         if (openModalElement) {
@@ -134,18 +139,14 @@ export default function Home(): ReactNode {
         }
     }, []);
 
-    const [show, setShow] = useState<boolean>(false);
-    const abrirModal = (): void => setShow(true);
-    const fecharModal = (): void => setShow(false);
-
     return (
-        <>
+        <div>
             <Carousel contents={[ContentCarousel1(), ContentCarousel2()]} />
             <Modal
                 show={show}
                 content={ContentModal(fecharModal)}
                 funcFechar={fecharModal}
             />
-        </>
+        </div>
     );
 }
