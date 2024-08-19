@@ -18,7 +18,7 @@ const style: object = {
     color: 'rgba(255,255,255,0.5)',
     margin: '0',
     padding: '0',
-    overflowY: 'hidden',
+    overflow: 'hidden',
 };
 
 export default function RootLayout({

@@ -139,6 +139,19 @@ export default function Home(): ReactNode {
         }
     }, []);
 
+    //FUNÇÃO: DEFINE O TAMANHO DA TELA
+    useEffect(() => {
+        const body: HTMLBodyElement | null = document.querySelector('body');
+
+        if (body) {
+            body.style.height = `${window.innerHeight}px`;
+
+            window.addEventListener('resize', () => {
+                body.style.height = `${window.innerHeight}px`;
+            });
+        }
+    }, []);
+
     return (
         <div>
             <Carousel contents={[ContentCarousel1(), ContentCarousel2()]} />
