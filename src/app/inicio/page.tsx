@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState, useRef } from 'react';
 import {
     faArrowDownAZ,
     faMagnifyingGlass,
@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Carousel } from '@/components/generics/carousel';
 import Lista from '@/components/lista';
-import { Modal } from '@/components/generics/modal';
+import Modal, { ModalHandles } from '@/components/generics/modal';
 import { useList } from '@/contexts/listaContext';
 import Musica from '@/lib/classeMusica';
 
@@ -88,7 +88,7 @@ const ContentCarousel2 = (): ReactNode => {
     );
 };
 
-const ContentModal = (fecharModal: () => void): ReactNode => {
+const ContentModal = (funcFechar: () => void): ReactNode => {
     const { lista } = useList();
 
     const fileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,8 +108,7 @@ const ContentModal = (fecharModal: () => void): ReactNode => {
 
                 lista.add(musica);
             }
-
-            fecharModal();
+            funcFechar();
         }
     };
 
@@ -128,6 +127,14 @@ export default function Home(): ReactNode {
     const [show, setShow] = useState<boolean>(false);
     const abrirModal = (): void => setShow(true);
     const fecharModal = (): void => setShow(false);
+
+    // RESPONSÁVEL POR UTILIZAR A FUNÇÃO FECHAR DO COMPONENTE FILHO
+    const modalRef = useRef<ModalHandles>(null);
+    const chamarMetodoDoFilho = () => {
+        if (modalRef.current) {
+            modalRef.current.genericClose();
+        }
+    };
 
     //FUNCÃO: ENCONTRA E ABRIR MODAL
     useEffect(() => {
@@ -156,9 +163,10 @@ export default function Home(): ReactNode {
         <div>
             <Carousel contents={[ContentCarousel1(), ContentCarousel2()]} />
             <Modal
+                content={ContentModal(chamarMetodoDoFilho)}
+                fecharModal={fecharModal}
                 show={show}
-                content={ContentModal(fecharModal)}
-                funcFechar={fecharModal}
+                ref={modalRef}
             />
         </div>
     );

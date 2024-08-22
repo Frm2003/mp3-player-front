@@ -1,47 +1,65 @@
-import { ReactNode, RefObject, useRef } from 'react';
+import React, {
+    forwardRef,
+    useImperativeHandle,
+    useRef,
+    ReactNode,
+} from 'react';
 import modalStyle from '@/styles/modal.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
-export function Modal({
-    show,
-    content,
-    funcFechar,
-}: {
-    show: boolean;
+interface ModalProps {
     content: ReactNode;
-    funcFechar: () => void;
-}) {
-    const modalRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
-
-    const fecharModal = () => {
-        if (modalRef.current) {
-            const animation = modalRef.current.animate(
-                [{ marginTop: '0%' }, { marginTop: '-300%' }],
-                {
-                    duration: 250,
-                    fill: 'forwards',
-                }
-            );
-
-            animation.onfinish = () => funcFechar();
-        }
-    };
-
-    const html = (
-        <section ref={modalRef} className={modalStyle.layout}>
-            <div className={modalStyle.body}>
-                <article style={{ textAlign: 'right' }}>
-                    <FontAwesomeIcon
-                        icon={faClose}
-                        size="2x"
-                        onClick={fecharModal}
-                    />
-                </article>
-                {content}
-            </div>
-        </section>
-    );
-
-    return show ? html : null;
+    fecharModal: () => void;
+    show: boolean;
 }
+
+export interface ModalHandles {
+    genericClose: () => void;
+}
+
+const Modal = forwardRef<ModalHandles, ModalProps>(
+    ({ content, fecharModal, show }, ref) => {
+        const modalRef = useRef<HTMLDivElement>(null);
+
+        const genericClose = () => {
+            if (modalRef.current) {
+                const animation = modalRef.current.animate(
+                    [{ marginTop: '0%' }, { marginTop: '-300%' }],
+                    {
+                        duration: 250,
+                        fill: 'forwards',
+                    }
+                );
+
+                animation.onfinish = () => fecharModal();
+            }
+        };
+
+        useImperativeHandle(ref, () => ({
+            genericClose,
+        }));
+
+        const html = (
+            <section ref={modalRef} className={modalStyle.layout}>
+                <div className={modalStyle.body}>
+                    <article style={{ textAlign: 'right' }}>
+                        <FontAwesomeIcon
+                            icon={faClose}
+                            size="2x"
+                            onClick={genericClose} // Use the method defined above
+                        />
+                    </article>
+                    {content}
+                </div>
+            </section>
+        );
+
+        return show ? html : null;
+    }
+);
+
+// Ensure that displayName is correctly set
+Modal.displayName = 'Modal';
+
+export default Modal;
