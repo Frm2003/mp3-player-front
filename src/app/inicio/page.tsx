@@ -1,91 +1,16 @@
 'use client';
 
 import { ReactNode, useEffect, useState, useRef } from 'react';
-import {
-    faArrowDownAZ,
-    faMagnifyingGlass,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Carousel } from '@/components/generics/carousel';
-import Lista from '@/components/lista';
 import Modal, { ModalHandles } from '@/components/generics/modal';
 import { useList } from '@/contexts/listaContext';
 import Musica from '@/lib/classeMusica';
-
-const styleTitle: object = {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '0.5em',
-};
+import ListaDeReproducao from '@/components/listaDeReproducao';
 
 const styleBtn: object = {
     border: '2px solid',
     borderRadius: '10px',
     padding: '0.5em 1.5em',
-};
-
-const ContentCarousel1 = (): ReactNode => {
-    const { lista } = useList();
-
-    const [navComponent, setNavComponent] = useState<HTMLElement | null>(null);
-    const [h2Component, setH2Component] = useState<HTMLHeadingElement | null>(
-        null
-    );
-    const [displayComponent, setDisplayComponent] = useState<Element | null>(
-        null
-    );
-
-    useEffect(() => {
-        setNavComponent(document.querySelector('nav'));
-        setH2Component(document.querySelector('h2'));
-        setDisplayComponent(document.querySelector('#displayAudio'));
-    }, []);
-
-    const [ordenou, setOrdenou] = useState<boolean>(false);
-
-    const ordenar = () => {
-        lista.mergeSort();
-        setOrdenou(false);
-    };
-
-    useEffect(() => {
-        setOrdenou(true);
-    }, [ordenou]);
-
-    return (
-        <>
-            <div style={styleTitle}>
-                <h2>Lista de Reprodução</h2>
-                <FontAwesomeIcon
-                    icon={faArrowDownAZ}
-                    size="2x"
-                    onClick={ordenar}
-                />
-            </div>
-            {navComponent && h2Component && displayComponent && (
-                <Lista
-                    list={lista.selectAll()}
-                    height={[
-                        navComponent.clientHeight,
-                        h2Component.clientHeight,
-                        displayComponent.clientHeight,
-                    ]}
-                />
-            )}
-        </>
-    );
-};
-
-const ContentCarousel2 = (): ReactNode => {
-    return (
-        <>
-            <div style={styleTitle}>
-                <h2>Pesquisa</h2>
-                <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" />
-            </div>
-        </>
-    );
 };
 
 const ContentModal = (funcFechar: () => void): ReactNode => {
@@ -161,7 +86,7 @@ export default function Home(): ReactNode {
 
     return (
         <div>
-            <Carousel contents={[ContentCarousel1(), ContentCarousel2()]} />
+            <Carousel contents={[ListaDeReproducao()]} />
             <Modal
                 content={ContentModal(chamarMetodoDoFilho)}
                 fecharModal={fecharModal}
