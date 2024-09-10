@@ -8,7 +8,13 @@ import {
     faPlay,
     faRepeat,
 } from '@fortawesome/free-solid-svg-icons';
-import { avancar, continuar, voltar, pausar } from '@/lib/funcoesDeAudio';
+import {
+    avancar,
+    continuar,
+    voltar,
+    pausar,
+    tocar,
+} from '@/lib/funcoesDeAudio';
 import { useEstadosMusica } from '@/contexts/estadoMusicaContext';
 import controleStyle from '@/styles/controleAudio.module.css';
 
@@ -29,6 +35,16 @@ export function ControleDeAudio() {
             });
 
             div.style.display = 'block';
+        }
+    };
+
+    const voltarAudio = (): void => {
+        if (info.duracao && info.audioAtual) {
+            if (info.duracao * 0.1 >= info.audioAtual?.currentTime) {
+                voltar(info.musicaAtual, info.audioAtual, setInfo);
+            } else {
+                tocar(info.musicaAtual, info.audioAtual, setInfo);
+            }
         }
     };
 
@@ -102,13 +118,7 @@ export function ControleDeAudio() {
                     <span>
                         <FontAwesomeIcon
                             icon={faBackward}
-                            onClick={() =>
-                                voltar(
-                                    info.musicaAtual,
-                                    info.audioAtual,
-                                    setInfo
-                                )
-                            }
+                            onClick={() => voltarAudio()}
                         />
                     </span>
                     <span>
