@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 interface ModalProps {
-    content: ReactNode;
+    children: ReactNode;
     fecharModal: () => void;
     show: boolean;
 }
@@ -19,7 +19,7 @@ export interface ModalHandles {
 }
 
 const Modal = forwardRef<ModalHandles, ModalProps>(
-    ({ content, fecharModal, show }, ref) => {
+    ({ children, fecharModal, show }, ref) => {
         const modalRef = useRef<HTMLDivElement>(null);
 
         const genericClose = () => {
@@ -50,7 +50,7 @@ const Modal = forwardRef<ModalHandles, ModalProps>(
                             onClick={genericClose} // Use the method defined above
                         />
                     </article>
-                    {content}
+                    {children}
                 </div>
             </section>
         );

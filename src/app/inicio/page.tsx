@@ -1,13 +1,13 @@
 'use client';
 
-import { ReactNode, useEffect, useState, useRef } from 'react';
+import { ReactNode, useEffect, useState, useRef, CSSProperties } from 'react';
 import { Carousel } from '@/components/generics/carousel';
 import Modal, { ModalHandles } from '@/components/generics/modal';
 import { useList } from '@/contexts/listaContext';
 import Musica from '@/lib/classeMusica';
 import ListaDeReproducao from '@/components/listaDeReproducao';
 
-const styleBtn: object = {
+const styleBtn: CSSProperties = {
     border: '2px solid',
     borderRadius: '10px',
     padding: '0.5em 1.5em',
@@ -87,12 +87,9 @@ export default function Home(): ReactNode {
     return (
         <div>
             <Carousel contents={[ListaDeReproducao()]} />
-            <Modal
-                content={ContentModal(chamarMetodoDoFilho)}
-                fecharModal={fecharModal}
-                show={show}
-                ref={modalRef}
-            />
+            <Modal fecharModal={fecharModal} show={show} ref={modalRef}>
+                {ContentModal(chamarMetodoDoFilho)}
+            </Modal>
         </div>
     );
 }
