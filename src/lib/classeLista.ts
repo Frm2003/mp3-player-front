@@ -1,6 +1,6 @@
 import type Musica from './classeMusica';
 
-class Lista {
+export default class Lista {
     primeiro: Musica | undefined;
     ultimo: Musica | undefined;
     tamanho: number;
@@ -111,5 +111,3 @@ class Lista {
         }
     }
 }
-
-export { Lista };

@@ -1,4 +1,4 @@
-class Musica {
+export default class Musica {
     //BASICOS
     nome: string;
     album: string | undefined;
@@ -35,5 +35,3 @@ class Musica {
         this.proximo = proximo;
     }
 }
-
-export default Musica;
