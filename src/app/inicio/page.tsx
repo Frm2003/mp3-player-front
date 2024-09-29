@@ -1,52 +1,10 @@
 'use client';
 
-import { ReactNode, useEffect, useState, useRef, CSSProperties } from 'react';
-import { Carousel } from '@/components/generics/carousel';
-import Modal, { ModalHandles } from '@/components/generics/modal';
-import { useList } from '@/contexts/listaContext';
-import Musica from '@/lib/classeMusica';
-import ListaDeReproducao from '@/components/listaDeReproducao';
-
-const styleBtn: CSSProperties = {
-    border: '2px solid',
-    borderRadius: '10px',
-    padding: '0.5em 1.5em',
-};
-
-const ContentModal = (funcFechar: () => void): ReactNode => {
-    const { lista } = useList();
-
-    const fileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files: FileList | null = event.target.files;
-        if (files) {
-            for (let i = 0; i < files.length; i++) {
-                const fileName = files[i].name;
-                const info = fileName.split('-').map((part) => part.trim());
-
-                const musica = new Musica(
-                    info.length > 2 ? info[2].trim() : info[1].trim(),
-                    info.length > 2 ? info[1] : undefined,
-                    info[0],
-                    URL.createObjectURL(files[i]),
-                    'arquivo'
-                );
-
-                lista.add(musica);
-            }
-            funcFechar();
-        }
-    };
-
-    return (
-        <article>
-            <h2>Upload de arquivos</h2>
-            <div style={styleBtn}>
-                <label htmlFor="filesInput">Selecione os Arquivos</label>
-            </div>
-            <input id="filesInput" type="file" multiple onChange={fileSelect} />
-        </article>
-    );
-};
+import { ReactNode, useEffect, useState, useRef } from 'react';
+import { Carousel } from '@/components/layouts/carousel';
+import ListaDeReproducao from '@/components/client/listaDeReproducao';
+import Modal, { ModalHandles } from '@/components/layouts/modal';
+import FileSelector from '@/components/FileSelector';
 
 export default function Home(): ReactNode {
     const [show, setShow] = useState<boolean>(false);
@@ -84,11 +42,13 @@ export default function Home(): ReactNode {
         }
     }, []);
 
+    const content = <h1>teste</h1>;
+
     return (
         <div>
-            <Carousel contents={[ListaDeReproducao()]} />
+            <Carousel contents={[ListaDeReproducao(), content]} />
             <Modal fecharModal={fecharModal} show={show} ref={modalRef}>
-                {ContentModal(chamarMetodoDoFilho)}
+                <FileSelector funcFechar={chamarMetodoDoFilho} />
             </Modal>
         </div>
     );
