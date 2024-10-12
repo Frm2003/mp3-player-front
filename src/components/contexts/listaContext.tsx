@@ -1,7 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
 import Lista from '@/lib/classeLista';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface ListaContextType {
     lista: Lista;
