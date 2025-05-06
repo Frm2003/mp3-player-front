@@ -1,0 +1,23 @@
+.layout h4 {
+    border-top: 1px solid rgba(55, 55, 55, 1);
+    font-weight: 300;
+    padding: 0.5em 0;
+    text-align: center;
+}
+
+.layout label {
+    text-align: center;
+    width: 100%;
+}
+
+.layout label p {
+    background: rgba(32, 32, 32, 1);
+    border: 1px solid rgba(55, 55, 55, 1);
+    border-radius: 5px;
+    margin: 0.5em 0;
+    padding: 0.5em;
+}
+
+.layout input[type='file'] {
+    display: none;
+}

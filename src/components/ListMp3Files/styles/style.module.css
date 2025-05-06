@@ -1,0 +1,36 @@
+.layout article:has(h2) {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 1.5em;
+}
+
+.layout article:has(ul) span {
+    font-size: 1em;
+    font-weight: 200;
+}
+
+.itemList {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.itemList span {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.itemList .info {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.itemList .info .icon {
+    background-color: rgba(41, 37, 37, 1);
+    border: 1px solid rgba(55, 55, 55, 1);
+    border-radius: 5px;
+    padding: 0.5em;
+    margin: 0 0.5em 0 0;
+}

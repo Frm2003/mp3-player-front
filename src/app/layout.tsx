@@ -1,13 +1,24 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { config } from '@fortawesome/fontawesome-svg-core';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import { CSSProperties } from 'react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import type { CSSProperties } from 'react';
+import { PlayerProvider } from '@/context/playerContext';
 
-const inter = Inter({ subsets: ['latin'] });
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 config.autoAddCss = false;
+
+const geistSans = localFont({
+    src: './fonts/GeistVF.woff',
+    variable: '--font-geist-sans',
+    weight: '100 900',
+});
+
+const geistMono = localFont({
+    src: './fonts/GeistMonoVF.woff',
+    variable: '--font-geist-mono',
+    weight: '100 900',
+});
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -15,12 +26,11 @@ export const metadata: Metadata = {
 };
 
 const style: CSSProperties = {
-    background: 'rgb(41,37,37)',
+    background: 'rgb(32, 32, 32)',
     color: 'rgba(255,255,255,0.5)',
+    fontFamily: 'var(--font-geist-sans)',
     margin: '0',
     padding: '0',
-    clipPath: 'inset(0)',
-    overflow: 'hidden',
 };
 
 export default function RootLayout({
@@ -30,9 +40,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body style={style} className={inter.className}>
-                {children}
-                <SpeedInsights />
+            <body
+                style={style}
+                className={`${geistSans.variable} ${geistMono.variable}`}
+            >
+                <PlayerProvider>{children}</PlayerProvider>
             </body>
         </html>
     );

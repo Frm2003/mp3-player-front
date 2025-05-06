@@ -1,0 +1,52 @@
+.layout {
+    align-items: center;
+    bottom: 72px;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+}
+
+.layout .body {
+    background: rgba(41, 37, 37, 1);
+    border: 1px solid rgba(55, 55, 55, 1);
+    border-radius: 5px;
+    padding: 0.5em;
+    overflow: hidden;
+    width: 92%;
+
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.layout .title {
+    float: left;
+    width: 75%;
+}
+
+.layout .btn {
+    background: rgba(32, 32, 32, 1);
+    border: 1px solid rgba(55, 55, 55, 1);
+    border-radius: 5px;
+    float: right;
+    padding: 0.5em;
+    text-align: center;
+    width: 15%;
+}
+
+.layout article div h3 {
+    color: white;
+    margin: 0;
+}
+
+.layout article div span {
+    font-weight: 200;
+}
+
+.layout progress {
+    background: none;
+    height: 1px;
+    padding: 0;
+    width: 100%;
+}
